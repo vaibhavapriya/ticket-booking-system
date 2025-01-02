@@ -1,16 +1,20 @@
 const mongoose = require('mongoose');
 
 const clientSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  location: { type: String },
   userid: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  food: { type: Boolean },
-  parking: { type: Boolean },
-  rating: { type: Number, min: 0, max: 5 },
+  name: { type: String },
   email: { type: String, required: true, unique: true },
   city: { type: String },
+  address: { type: String },
   contactInfo: { type: String },
-  photos: [{ type: String }], // Cloudinary URLs
+  food: { type: Boolean, default: false },
+  parking: { type: Boolean, default: false },
+  handicapFacility: { type: Boolean, default: false },
+  photos: [{ type: String }],
+  rating: { type: Number, default: 0 }, // Added rating field
 });
 
-module.exports = mongoose.model('Client', clientSchema);
+const Client = mongoose.model('Client', clientSchema);
+
+module.exports = Client;
+

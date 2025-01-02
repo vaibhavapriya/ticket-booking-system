@@ -8,7 +8,7 @@ function Home() {
   }
   return (
     <div>
-        {profileModal && <FormProfile/>}
+        {profileModal && <FormProfile setProfileModal={setProfileModal}/>}
         <div>teatre profiel</div>
         <div>
           <button onClick={isProfileFormOpen}>EditProfile</button>

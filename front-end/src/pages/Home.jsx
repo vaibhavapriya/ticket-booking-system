@@ -1,8 +1,21 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import FormProfile from '../components/client/FormProfile'
 
 function Home() {
+  const [profileModal,setProfileModal]=useState(false);
+  const isProfileFormOpen=()=>{
+    setProfileModal(true)
+  }
   return (
-    <div>Home</div>
+    <div>
+        {profileModal && <FormProfile/>}
+        <div>teatre profiel</div>
+        <div>
+          <button onClick={isProfileFormOpen}>EditProfile</button>
+        </div>
+        <div>create screen</div>
+        <div>create mivie</div>
+    </div>
   )
 }
 

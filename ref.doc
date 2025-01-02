@@ -11,3 +11,13 @@ Seat Availability (User):
 
 GET /seats/:showtimeId: Get seat availability for a showtime.
 POST /booking: Reserve selected seats.
+
+goal before lunch login set thearter info set screen info
+
+set movie integrate with movie Api
+
+or timing be morning makne everning nignt or speacial(personlized)
+
+shedule show on time  only one show for amovie
+
+seation etc

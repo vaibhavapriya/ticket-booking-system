@@ -1,6 +1,5 @@
-const User = require("../models/userSchema")
-const Student = require('../models/studentSchema');
-const Company = require('../models/companySchema');
+const User = require("../models/userSchema");
+const Client = require('../models/clientSchema');
 const Admin = require('../models/adminSchema');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs'); 
@@ -33,26 +32,29 @@ exports.login = async (req, res) => {
 exports.signup = async (req, res) => {
     try {
       const {name, email, password ,role} = req.body;
+      console.log(req.body)
   
       const userExists = await User.findOne({ email });
       if (userExists) return res.status(400).json({ message: 'User already exists' });
       
       const newUser = new User({ name, email, password ,role });
       await newUser.save();
-
+        console.log(newUser)
       // Role-Specific Data Creation
-      if (role === 'Student') {
-        await Student.create({
+    //   if (role === 'Student') {
+    //     await Student.create({
+    //         userid: newUser._id,
+    //         name:newUser.name,
+    //         email:newUser.email,
+    //     });
+    // } else 
+    if (role === 'Client') {
+        await Client.create({
             userid: newUser._id,
             name:newUser.name,
             email:newUser.email,
         });
-    } else if (role === 'Company') {
-        await Company.create({
-            userid: newUser._id,
-            name:newUser.name,
-            email:newUser.email,
-        });
+        console.log('hi')
     } else if (role === 'Admin') {
         await Admin.create({
             userid: newUser._id,

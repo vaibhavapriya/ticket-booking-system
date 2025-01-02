@@ -92,7 +92,7 @@ body {
 
 .seat.reserved {
   background-color: #f44336;
-  color: white;
+  color: rgb(255, 255, 255);
   cursor: not-allowed;
 }
 
@@ -110,7 +110,7 @@ body {
 .selection-summary {
   margin-top: 20px;
   padding: 10px;
-  background: white;
+  background: hwb(0 100% 0%);
   border: 1px solid #ddd;
   border-radius: 5px;
 }

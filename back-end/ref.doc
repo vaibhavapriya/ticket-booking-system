@@ -1,0 +1,13 @@
+Movie Management (Admin):
+
+POST /movies: Add a new movie/showtime.
+PUT /movies/:id: Update a movie/showtime.
+DELETE /movies/:id: Remove a movie/showtime.
+Seat Management (Admin):
+
+POST /seats: Define seat layout and pricing.
+PUT /seats/:id: Update seat layout/pricing.
+Seat Availability (User):
+
+GET /seats/:showtimeId: Get seat availability for a showtime.
+POST /booking: Reserve selected seats.

@@ -14,7 +14,7 @@ function Home() {
   return (
     <div>
         {profileModal && <FormProfile setProfileModal={setProfileModal}/>}
-        {photoModal && <FormPhoto setProfileModal={setPhotoModal}/>}
+        {photoModal && <FormPhoto setPhotoModal={setPhotoModal}/>}
         <div>teatre profiel</div>
         <div>
           <button onClick={isProfileFormOpen}>EditProfile</button>

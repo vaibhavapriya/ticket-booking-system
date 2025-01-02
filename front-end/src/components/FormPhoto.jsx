@@ -3,7 +3,7 @@ import Cropper from 'react-easy-crop';
 import axios from 'axios';
 import { getCroppedImg } from '../utils/cropImageUtils'; // Utility function to get the cropped image
 
-const FormPhoto = () => {
+const FormPhoto = ({setPhotoModal}) => {
   const clientId = localStorage.getItem('userid');
   const [imageUrl, setImageUrl] = useState(null);  // Store the uploaded image URL
   const [crop, setCrop] = useState({ x: 0, y: 0 }); // Position of the crop area
@@ -70,10 +70,14 @@ const FormPhoto = () => {
         headers: { 'Content-Type': 'multipart/form-data' },
       }); // API call to upload cropped image
       console.log('Image uploaded successfully:', response.data);
+      setPhotoModal(false);
     } catch (error) {
       console.error('Error uploading image:', error);
     }
   };
+  const handleCancle =()=>{
+    setPhotoModal(false);
+  }
 
   return (
     <div>
@@ -87,7 +91,7 @@ const FormPhoto = () => {
             image={imageUrl}
             crop={crop}
             zoom={zoom}
-            aspect={4 / 3}  // Set aspect ratio to 4:3 (landscape orientation)
+            aspect={1600 / 680}  // Set aspect ratio to 1600 x 680
             onCropChange={setCrop}
             onZoomChange={setZoom}
             onCropComplete={(croppedAreaPercentage, croppedAreaPixels) => {
@@ -107,6 +111,7 @@ const FormPhoto = () => {
       )}
 
       <button onClick={handleUpload}>Upload Cropped Image</button>
+      <button onClick={handleCancle}>Cancel</button>
     </div>
   );
 };

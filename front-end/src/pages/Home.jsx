@@ -19,7 +19,7 @@ function Home() {
         <div>
           <button onClick={isProfileFormOpen}>EditProfile</button>
         </div>
-          <button onClick={isPhotoFormOpen}>EditProfile</button>
+          <button onClick={isPhotoFormOpen}>Add Photos</button>
         <div>
 
         </div>

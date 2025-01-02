@@ -55,7 +55,7 @@ const FormPhoto = ({setPhotoModal}) => {
   // Upload cropped image
   const handleUpload = async () => {
     if (!croppedImage) {
-      console.error('No cropped image available');
+        alert('Please crop the photo before uploading');
       return;
     }
 
@@ -80,18 +80,23 @@ const FormPhoto = ({setPhotoModal}) => {
   }
 
   return (
-    <div>
-      <h2>Upload and Crop Photo</h2>
+    <div className="bg-[#fbe7ef] p-6 rounded-lg shadow-lg max-w-lg mx-auto">
+      <h2 className="text-2xl font-bold text-[#db0a5b] mb-6">Upload and Crop Photo</h2>
 
-      <input type="file" accept="image/*" onChange={handleImageChange} />
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleImageChange}
+        className="block w-full p-3 border border-gray-300 rounded-md mb-6 focus:outline-none focus:ring-2 focus:ring-[#db0a5b]"
+      />
 
       {imageUrl && (
-        <div style={{ position: 'relative', width: '100%', height: '400px' }}>
+        <div className="relative w-full h-[400px] mb-6">
           <Cropper
             image={imageUrl}
             crop={crop}
             zoom={zoom}
-            aspect={1600 / 680}  // Set aspect ratio to 1600 x 680
+            aspect={1280 / 720}  // Set aspect ratio to 1280x720 (16:9)
             onCropChange={setCrop}
             onZoomChange={setZoom}
             onCropComplete={(croppedAreaPercentage, croppedAreaPixels) => {
@@ -101,17 +106,34 @@ const FormPhoto = ({setPhotoModal}) => {
         </div>
       )}
 
-      <button onClick={getCroppedImageHandler}>Get Cropped Image</button>
+      <button
+        onClick={getCroppedImageHandler}
+        className="w-full bg-[#db0a5b] text-white p-3 rounded font-bold hover:bg-[#f62459] transition mb-4"
+      >
+        Get Cropped Image
+      </button>
 
       {croppedImage && (
-        <div>
-          <h3>Preview Cropped Image:</h3>
-          <img src={croppedImage} alt="Cropped preview" />
+        <div className="mb-6">
+          <h3 className="text-[#db0a5b] font-semibold">Preview Cropped Image:</h3>
+          <img src={croppedImage} alt="Cropped preview" className="w-full h-auto rounded-lg shadow-md" />
         </div>
       )}
 
-      <button onClick={handleUpload}>Upload Cropped Image</button>
-      <button onClick={handleCancle}>Cancel</button>
+      <div className="flex gap-4">
+        <button
+          onClick={handleUpload}
+          className="bg-[#db0a5b] text-white p-3 rounded font-bold hover:bg-[#f62459] transition flex-1"
+        >
+          Upload Cropped Image
+        </button>
+        <button
+          onClick={handleCancle}
+          className="bg-gray-400 text-white p-3 rounded font-bold hover:bg-gray-500 transition flex-1"
+        >
+          Cancel
+        </button>
+      </div>
     </div>
   );
 };

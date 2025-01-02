@@ -24,13 +24,13 @@ const storage = new CloudinaryStorage({
       return ext; // Ensure supported formats
     },
     public_id: (req, file) => `${Date.now()}-${file.originalname.replace(/\.[^/.]+$/, '')}`,
-    transformation: [      { 
-      width: 1600, 
-      height: 680, 
-      crop: 'fill', 
-      gravity: 'center', 
-      aspect_ratio: 1600 / 680 // Optional: Enforce aspect ratio as 1600x680
-    }],
+    // transformation: [      { 
+    //   width: 1600, 
+    //   height: 680, 
+    //   crop: 'fill', 
+    //   gravity: 'center', 
+    //   aspect_ratio: 1600 / 680 // Optional: Enforce aspect ratio as 1600x680
+    // }],
   },
 });
 

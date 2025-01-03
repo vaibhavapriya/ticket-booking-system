@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/:id', getClientProfile); // Get client profile
 router.put('/:id', validateToken, updateClientProfile); // Update client profile
 router.post('/upload/:id', upload.single('photo'), uploadPhoto);
-router.post('/movies', addMovie); 
+router.post('/movie/:id', addMovie); 
 
 
 module.exports = router;

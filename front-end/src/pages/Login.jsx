@@ -17,7 +17,7 @@ const Login = () => {
             localStorage.setItem('token', token);
             localStorage.setItem('userid', id);
             // Navigate based on role
-            if (role === 'Client') navigate(`/company/${id}`);
+            if (role === 'Cinemahall') navigate(`/company/${id}`);
         } catch (err) {
             //setError(err.response.data.message || 'Something went wrong');
             console.error(err.response.data.message);

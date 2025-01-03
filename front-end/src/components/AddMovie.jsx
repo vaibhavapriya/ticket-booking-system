@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const AddMovie = () => {
+  const  clientId=localStorage.getItem('userid')
   const [searchTerm, setSearchTerm] = useState('');
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -45,7 +46,7 @@ const AddMovie = () => {
   const handleAddMovie = async (movie) => {
     try {
       const movieData = {
-        tmdbid: movie.id,
+        tmdbId: movie.id,
         title: movie.title,
         poster: movie.poster_path,
         releaseDate: movie.release_date,
@@ -53,7 +54,7 @@ const AddMovie = () => {
       };
 
       // Send movie details to your backend to store in the movie database
-      await axios.post('http://localhost:5000/api/client/movies', movieData);
+      await axios.post(`http://localhost:5000/api/cinemahall/movie/${clientId}`, movieData);
       alert('Movie added successfully!');
     } catch (error) {
       console.error('Error adding movie to database:', error);

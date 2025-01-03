@@ -7,7 +7,7 @@ const Signup = () => {
         name: '',
         email: '',
         password: '',
-        role: 'Client', // Default role is 'Student'
+        role: 'Cinemahall', // Default role is 'Student'
     });
 
     const [error, setError] = useState('');
@@ -115,7 +115,7 @@ const Signup = () => {
               className="w-full mt-1 px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#7091E6] focus:border-[#7091E6]"
             >
               {/* <option value="Student">Student</option> */}
-              <option value="Client">Company</option>
+              <option value="Cinemahall">Cinemahall</option>
               <option value="Admin">Admin</option>
             </select>
           </div>

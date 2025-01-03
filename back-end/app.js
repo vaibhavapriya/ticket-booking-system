@@ -39,7 +39,7 @@ app.use(cors({
 //app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use('/auth', authRoutes);
-app.use('/api/client',clientRoutes);
+app.use('/api/cinemahall',clientRoutes);
 
 
 // Start the server

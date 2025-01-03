@@ -1,5 +1,5 @@
 const User = require("../models/userSchema");
-const Client = require('../models/clientSchema');
+const Cinemahall = require('../models/cinemahallSchema');
 const Admin = require('../models/adminSchema');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs'); 
@@ -48,8 +48,8 @@ exports.signup = async (req, res) => {
     //         email:newUser.email,
     //     });
     // } else 
-    if (role === 'Client') {
-        await Client.create({
+    if (role === 'Cinemahall') {
+        await Cinemahall.create({
             userid: newUser._id,
             name:newUser.name,
             email:newUser.email,

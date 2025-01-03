@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const clientSchema = new mongoose.Schema({
+const cinemahallSchema = new mongoose.Schema({
   userid: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   name: { type: String },
   email: { type: String, required: true, unique: true },
@@ -14,7 +14,7 @@ const clientSchema = new mongoose.Schema({
   rating: { type: Number, default: 0 }, // Added rating field
 });
 
-const Client = mongoose.model('Client', clientSchema);
+const Cinemahall = mongoose.model('Cinemahall', cinemahallSchema);
 
-module.exports = Client;
+module.exports = Cinemahall;
 

@@ -66,7 +66,7 @@ const FormPhoto = ({setPhotoModal}) => {
     formData.append('photo', file);
 
     try {
-      const response = await axios.post(`http://localhost:5000/api/client/upload/${clientId}`, formData, {
+      const response = await axios.post(`http://localhost:5000/api/cinemahall/upload/${clientId}`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       }); // API call to upload cropped image
       console.log('Image uploaded successfully:', response.data);

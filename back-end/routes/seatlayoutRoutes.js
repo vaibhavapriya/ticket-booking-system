@@ -4,22 +4,25 @@ const SeatLayout = require('../models/seatLayout'); // Import the model
 
 // Save seat layout
 router.post("/saveLayout", async (req, res) => {
-  try {
-    const { theaterName, rows } = req.body;
+  const { screenName, totalSeats, rows, theaterId } = req.body;
 
-    if (!theaterName || !rows || rows.length === 0) {
-      return res.status(400).json({ error: "Invalid data" });
-    }
-
-    // Save to database
-    const layout = new SeatLayout({ theaterName, rows });
-    await layout.save();
-
-    res.status(201).json({ message: "Seat layout saved successfully", layout });
-  } catch (error) {
-    console.error("Error saving seat layout:", error);
-    res.status(500).json({ error: "Server error" });
+  if (!screenName || !theaterId || !rows) {
+    return res.status(400).json({ error: "Missing required fields" });
   }
+
+  // Simulate saving to the database
+  const savedData =  new SeatLayout({
+    theater :theaterId,
+    screenName,
+    totalSeats,
+    rows,
+  });
+  await savedData.save();
+
+  console.log("Saved Data:", savedData);
+
+  // Respond back with success
+  res.status(200).json({ message: "Layout saved successfully", data: savedData });
 });
 
 // Get all layouts

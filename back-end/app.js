@@ -5,6 +5,7 @@ const path = require('path');
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/loginRoutes');
 const clientRoutes = require('./routes/clientRoutes');
+const screenRoutes = require('./routes/seatlayoutRoutes');
 
 require('dotenv').config();
 
@@ -40,6 +41,7 @@ app.use(cors({
 
 app.use('/auth', authRoutes);
 app.use('/api/cinemahall',clientRoutes);
+app.use('/api/screens',screenRoutes);
 
 
 // Start the server

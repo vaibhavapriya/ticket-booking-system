@@ -1,5 +1,9 @@
 Movie Management (Admin):
 
+tables:movies, therter/client, screens, shows
+
+to find movie has only teather[] ref ,any amovieshow is sheduled the the teater has show ref[] 
+
 POST /movies: Add a new movie/showtime.
 PUT /movies/:id: Update a movie/showtime.
 DELETE /movies/:id: Remove a movie/showtime.

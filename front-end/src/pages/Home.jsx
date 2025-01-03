@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react'
-import FormProfile from '../components/client/FormProfile'
+import FormProfile from '../components/FormProfile'
 import FormPhoto from '../components/FormPhoto'
+import SeatLayout from '../components/seatLayout';
+import AddMovie from '../components/AddMovie';
 
 function Home() {
   const [profileModal,setProfileModal]=useState(false);
@@ -21,6 +23,8 @@ function Home() {
         </div>
           <button onClick={isPhotoFormOpen}>Add Photos</button>
         <div>
+        <AddMovie/>
+        <SeatLayout/>
 
         </div>
         <div>create screen</div>

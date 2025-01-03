@@ -1,4 +1,5 @@
 const Client = require('../models/clientSchema');
+const Movie = require('../models/movieSchema')
 const { cloudinary } = require('../config/cloudinaryConfig');
 
 // Get client profile
@@ -72,5 +73,17 @@ exports.uploadPhoto = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Server error', details: error.message });
+  }
+};
+
+exports.addMovie =  async (req, res) => {
+  try {
+    const { title, poster, releaseDate, overview } = req.body;
+    const newMovie = new Movie({ title, poster, releaseDate, overview });
+    await newMovie.save();
+    res.status(201).json({ message: 'Movie added successfully' });
+  } catch (error) {
+    console.error('Error adding movie:', error);
+    res.status(500).json({ error: 'Server error' });
   }
 };

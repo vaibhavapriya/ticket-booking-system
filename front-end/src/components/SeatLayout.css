@@ -1,0 +1,35 @@
+/* SeatLayout.css */
+.seat-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .seat-row {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .seat {
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #333;
+    background-color: lightgray;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .seat.available {
+    background-color: green;
+  }
+  
+  .seat.unavailable {
+    background-color: red;
+    cursor: not-allowed;
+  }
+  

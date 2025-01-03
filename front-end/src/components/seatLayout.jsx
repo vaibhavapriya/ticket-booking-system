@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "./App.css";
+import "./seatLayout.css";
 
-const DynamicSeatLayout = () => {
+const SeatLayout = () => {
   const [rows, setRows] = useState([
     { name: "Row 1", seats: "1,2,3,null,4,5", price: 300 },
   ]); // Default row for initial display
@@ -148,4 +148,4 @@ const DynamicSeatLayout = () => {
   );
 };
 
-export default DynamicSeatLayout;
+export default SeatLayout;

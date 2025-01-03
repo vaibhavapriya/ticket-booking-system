@@ -9,31 +9,49 @@ const SeatLayout = () => {
   const [reservedSeats, setReservedSeats] = useState([]);
   const [selectedSeats, setSelectedSeats] = useState([]);
 
+  // Handle changes to row configuration
   const handleRowChange = (index, field, value) => {
     const updatedRows = [...rows];
     updatedRows[index][field] = value;
     setRows(updatedRows);
   };
 
+  // Add a new row
   const addNewRow = () => {
     setRows([...rows, { name: `Row ${rows.length + 1}`, seats: "", price: 0 }]);
   };
 
+  // Remove a row
   const removeRow = (index) => {
     const updatedRows = rows.filter((_, i) => i !== index);
     setRows(updatedRows);
   };
 
+  // Clear a row (make it empty)
+  const clearRow = (index) => {
+    const updatedRows = [...rows];
+    updatedRows[index].seats = ""; // Set seats to empty
+    setRows(updatedRows);
+  };
+
+  // Generate the layout from rows
   const generateLayout = () => {
-    const newLayout = rows.map((row) => {
-      const seats = row.seats
-        .split(",")
-        .map((seat) => (seat.trim() === "null" ? null : `${row.name}${seat.trim()}`));
-      return { rowLabel: row.name, seats, price: row.price };
-    });
+    const newLayout = rows
+      .filter((row) => row.seats.trim() !== "") // Skip rows with empty `seats`
+      .map((row) => {
+        const seats = row.seats
+          .split(",")
+          .map((seat) =>
+            seat.trim() === "null" || seat.trim() === ""
+              ? null
+              : `${row.name}-${seat.trim()}`
+          );
+        return { rowLabel: row.name, seats, price: row.price };
+      });
     setLayout(newLayout);
   };
 
+  // Handle seat click
   const handleSeatClick = (seat) => {
     if (!seat || reservedSeats.includes(seat)) return; // Ignore reserved or null seats.
     setSelectedSeats((prev) =>
@@ -86,6 +104,9 @@ const SeatLayout = () => {
             <button onClick={() => removeRow(index)} className="remove-btn">
               Remove Row
             </button>
+            <button onClick={() => clearRow(index)} className="clear-btn">
+              Clear Row
+            </button>
           </div>
         ))}
         <button onClick={addNewRow} className="add-btn">
@@ -137,9 +158,7 @@ const SeatLayout = () => {
         <strong>
           Total Price: $
           {selectedSeats.reduce((sum, seat) => {
-            const row = layout.find((r) =>
-              r.seats.includes(seat)
-            );
+            const row = layout.find((r) => r.seats.includes(seat));
             return sum + (row ? row.price : 0);
           }, 0)}
         </strong>

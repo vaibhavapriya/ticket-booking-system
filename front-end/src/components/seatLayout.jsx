@@ -79,103 +79,102 @@ const SeatLayout = () => {
   
 
   return (
-<div className="dynamic-seat-layout bg-[#1a1a1a] text-[#cec3c8] min-h-screen p-6">
-  <h1 className="text-3xl font-bold text-[#db0a5b] mb-8">Dynamic Seat Layout</h1>
+  <div className="dynamic-seat-layout bg-[#1a1a1a] text-[#cec3c8] min-h-screen p-6">
+    <h1 className="text-3xl font-bold text-[#db0a5b] mb-8">Dynamic Seat Layout</h1>
 
-  {/* Configuration Form */}
-  <div className="config-form bg-[#2d2d2d] p-6 rounded-lg shadow-md mb-8">
-    <h2 className="text-2xl font-semibold text-[#db0a5b] mb-4">
-      Configure Theater Layout
-    </h2>
-    {rows.map((row, index) => (
-      <div
-        key={index}
-        className="row-config mb-6 p-4 border border-[#db0a5b] rounded-lg"
-      >
-        <label className="block text-sm font-medium text-[#cec3c8] mb-2">
-          Row Name:
-          <input
-            type="text"
-            value={row.name}
-            onChange={(e) => handleRowChange(index, "name", e.target.value)}
-            className="w-full p-2 mt-1 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#db0a5b] bg-[#1a1a1a] text-[#cec3c8]"
-          />
-        </label>
-        <label className="block text-sm font-medium text-[#cec3c8] mb-2">
-          Seats (comma-separated):
-          <input
-            type="text"
-            value={row.seats}
-            placeholder="e.g., 1,2,3,null,4"
-            onChange={(e) => handleRowChange(index, "seats", e.target.value)}
-            className="w-full p-2 mt-1 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#db0a5b] bg-[#1a1a1a] text-[#cec3c8]"
-          />
-        </label>
-        <div className="flex space-x-4 mt-4">
-          <button
-            onClick={() => removeRow(index)}
-            className="remove-btn bg-[#6e304b] text-white px-4 py-2 rounded-lg hover:bg-[#db0a5b] transition"
-          >
-            Remove Row
-          </button>
-          <button
-            onClick={() => clearRow(index)}
-            className="clear-btn bg-[#6e304b] text-white px-4 py-2 rounded-lg hover:bg-[#db0a5b] transition"
-          >
-            Clear Row
-          </button>
-        </div>
-      </div>
-    ))}
-    <div className="flex space-x-4 mt-6">
-      <button
-        onClick={addNewRow}
-        className="add-btn bg-[#db0a5b] text-white px-4 py-2 rounded-lg hover:bg-[#f62459] transition"
-      >
-        Add New Row
-      </button>
-      <button
-        onClick={generateLayout}
-        className="generate-btn bg-[#db0a5b] text-white px-4 py-2 rounded-lg hover:bg-[#f62459] transition"
-      >
-        Generate Layout
-      </button>
-    </div>
-  </div>
-
-  {/* Display Seat Layout */}
-  <div className="seat-layout bg-[#2d2d2d] p-6 rounded-lg shadow-md">
-    {layout.map((row, rowIndex) => (
-      <div key={rowIndex} className="seat-row flex items-center mb-4">
-        <span className="row-label w-16 font-medium text-[#cec3c8]">
-          {row.rowLabel}
-        </span>
-        <div className="flex space-x-2">
-          {row.seats.map((seat, seatIndex) => (
-            <div
-              key={seatIndex}
-              className={`seat w-10 h-10 flex items-center justify-center rounded-lg text-white ${
-                !seat
-                  ? "gap bg-transparent"
-                  : "available bg-[#6e304b] hover:bg-[#db0a5b] transition"
-              }`}
+    {/* Configuration Form */}
+    <div className="config-form bg-[#2d2d2d] p-6 rounded-lg shadow-md mb-8">
+      <h2 className="text-2xl font-semibold text-[#db0a5b] mb-4">
+        Configure Theater Layout
+      </h2>
+      {rows.map((row, index) => (
+        <div
+          key={index}
+          className="row-config mb-6 p-4 border border-[#db0a5b] rounded-lg"
+        >
+          <label className="block text-sm font-medium text-[#cec3c8] mb-2">
+            Row Name:
+            <input
+              type="text"
+              value={row.name}
+              onChange={(e) => handleRowChange(index, "name", e.target.value)}
+              className="w-full p-2 mt-1 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#db0a5b] bg-[#1a1a1a] text-[#cec3c8]"
+            />
+          </label>
+          <label className="block text-sm font-medium text-[#cec3c8] mb-2">
+            Seats (comma-separated):
+            <input
+              type="text"
+              value={row.seats}
+              placeholder="e.g., 1,2,3,null,4"
+              onChange={(e) => handleRowChange(index, "seats", e.target.value)}
+              className="w-full p-2 mt-1 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#db0a5b] bg-[#1a1a1a] text-[#cec3c8]"
+            />
+          </label>
+          <div className="flex space-x-4 mt-4">
+            <button
+              onClick={() => removeRow(index)}
+              className="remove-btn bg-[#6e304b] text-white px-4 py-2 rounded-lg hover:bg-[#db0a5b] transition"
             >
-              {seat}
-            </div>
-          ))}
+              Remove Row
+            </button>
+            <button
+              onClick={() => clearRow(index)}
+              className="clear-btn bg-[#6e304b] text-white px-4 py-2 rounded-lg hover:bg-[#db0a5b] transition"
+            >
+              Clear Row
+            </button>
+          </div>
         </div>
+      ))}
+      <div className="flex space-x-4 mt-6">
+        <button
+          onClick={addNewRow}
+          className="add-btn bg-[#db0a5b] text-white px-4 py-2 rounded-lg hover:bg-[#f62459] transition"
+        >
+          Add New Row
+        </button>
+        <button
+          onClick={generateLayout}
+          className="generate-btn bg-[#db0a5b] text-white px-4 py-2 rounded-lg hover:bg-[#f62459] transition"
+        >
+          Generate Layout
+        </button>
       </div>
-    ))}
+    </div>
+
+    {/* Display Seat Layout */}
+    <div className="seat-layout bg-[#2d2d2d] p-6 rounded-lg shadow-md">
+      {layout.map((row, rowIndex) => (
+        <div key={rowIndex} className="seat-row flex items-center mb-4">
+          <span className="row-label w-16 font-medium text-[#cec3c8]">
+            {row.rowLabel}
+          </span>
+          <div className="flex space-x-2">
+            {row.seats.map((seat, seatIndex) => (
+              <div
+                key={seatIndex}
+                className={`seat w-10 h-10 flex items-center justify-center rounded-lg text-white ${
+                  !seat
+                    ? "gap bg-transparent"
+                    : "available bg-[#6e304b] hover:bg-[#db0a5b] transition"
+                }`}
+              >
+                {seat}
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <button
+      onclick={saveLayout}
+      className="save-btn mt-6 bg-[#db0a5b] text-white px-6 py-3 rounded-lg hover:bg-[#f62459] transition"
+    >
+      Save Layout
+    </button>
   </div>
-
-  <button
-    onclick={saveLayout}
-    className="save-btn mt-6 bg-[#db0a5b] text-white px-6 py-3 rounded-lg hover:bg-[#f62459] transition"
-  >
-    Save Layout
-  </button>
-</div>
-
   );
 };
 

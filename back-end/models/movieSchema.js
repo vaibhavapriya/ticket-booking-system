@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const movieSchema = new mongoose.Schema({
+  tmdbid: {type: String },
   title: { type: String },
   poster: { type: String },
   releaseDate: { type: String },

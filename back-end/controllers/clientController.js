@@ -78,8 +78,8 @@ exports.uploadPhoto = async (req, res) => {
 
 exports.addMovie =  async (req, res) => {
   try {
-    const { title, poster, releaseDate, overview } = req.body;
-    const newMovie = new Movie({ title, poster, releaseDate, overview });
+    const { tmdbid, title, poster, releaseDate, overview } = req.body;
+    const newMovie = new Movie({tmdbid, title, poster, releaseDate, overview });
     await newMovie.save();
     res.status(201).json({ message: 'Movie added successfully' });
   } catch (error) {

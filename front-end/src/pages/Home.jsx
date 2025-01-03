@@ -18,26 +18,52 @@ function Home() {
     setScreenModal(true)
   }
   return (
-    <div>
+<div className="bg-[#1a1a1a] text-[#cec3c8] min-h-screen p-8 justify-center align-center">
+  <AddMovie />
 
-        <AddMovie/>
-        <div>theatre profile</div>
-        <div>
-          <button onClick={isProfileFormOpen}>EditProfile</button>
-        </div>
-          <button onClick={isPhotoFormOpen}>Add Photos</button>
-        <div>
-        </div>
-          <button onClick={isScreenFormOpen}>Add Screen</button>
-        <div>
-        {profileModal && <FormProfile setProfileModal={setProfileModal}/>}
-        {photoModal && <FormPhoto setPhotoModal={setPhotoModal}/>}
-        {screenModal && <SeatLayout setScreenModal={setScreenModal}/>}
+  <div className="text-[#db0a5b] font-semibold text-xl mt-8">Theatre Profile</div>
 
-        </div>
-        <div>create screen</div>
-        <div>create mivie</div>
-    </div>
+  <div className='w-100 flex flex-row justify-evenly'>
+  <div className="mt-4">
+    <button
+      onClick={isProfileFormOpen}
+      className="bg-[#db0a5b] text-white px-6 py-3 rounded-lg hover:bg-[#f62459] transition"
+    >
+      Edit Profile
+    </button>
+  </div>
+
+  <div className="mt-4">
+    <button
+      onClick={isPhotoFormOpen}
+      className="bg-[#db0a5b] text-white px-6 py-3 rounded-lg hover:bg-[#f62459] transition"
+    >
+      Add Photos
+    </button>
+  </div>
+
+  <div className="mt-4">
+    <button
+      onClick={isScreenFormOpen}
+      className="bg-[#db0a5b] text-white px-6 py-3 rounded-lg hover:bg-[#f62459] transition"
+    >
+      Add Screen
+    </button>
+  </div>
+
+  </div>
+
+  <div className="mt-8">
+    {profileModal && <FormProfile setProfileModal={setProfileModal} />}
+    {photoModal && <FormPhoto setPhotoModal={setPhotoModal} />}
+    {screenModal && <SeatLayout setScreenModal={setScreenModal} />}
+  </div>
+
+  <div className="text-[#db0a5b] font-semibold text-xl mt-8">shedule show</div>
+
+  <div className="text-[#db0a5b] font-semibold text-xl mt-4">Create Movie</div>
+</div>
+
   )
 }
 

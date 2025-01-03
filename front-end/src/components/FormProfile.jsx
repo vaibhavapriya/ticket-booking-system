@@ -64,7 +64,7 @@ const FormProfile = ({setProfileModal}) => {
   if (error) return <p>{error}</p>;
 
   return (
-    <div className="bg-[rgb(255,255,255)]min-h-screen flex items-center justify-center">
+    <div className="fixed inset-0  bg-[rgb(255,255,255)]min-h-screen flex items-center justify-center">
       <form
         onSubmit={handleSubmit}
         className="bg-white p-8 rounded-lg shadow-md w-full max-w-lg"

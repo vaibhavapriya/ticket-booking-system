@@ -3,6 +3,7 @@ import FormProfile from '../components/FormProfile'
 import FormPhoto from '../components/FormPhoto'
 import SeatLayout from '../components/seatLayout';
 import AddMovie from '../components/AddMovie';
+import Movies from '../components/Movies';
 
 function Home() {
   const [profileModal,setProfileModal]=useState(false);
@@ -58,7 +59,7 @@ function Home() {
     {photoModal && <FormPhoto setPhotoModal={setPhotoModal} />}
     {screenModal && <SeatLayout setScreenModal={setScreenModal} />}
   </div>
-
+    <Movies/>
   <div className="text-[#db0a5b] font-semibold text-xl mt-8">shedule show</div>
 
   <div className="text-[#db0a5b] font-semibold text-xl mt-4">Create Movie</div>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./seatLayout.css";
 
-const SeatLayout = () => {
+const SeatLayout = ({setScreenModal}) => {
   const theaterId = localStorage.getItem('userid');
   const [screenName, setScreenName] = useState("");
   const [rows, setRows] = useState([
@@ -81,6 +81,7 @@ const SeatLayout = () => {
   
       if (response.ok) {
         alert("Layout saved successfully!");
+        setScreenModal(false);
       } else {
         const data = await response.json();
         alert(`Error saving layout: ${data.error}`);
@@ -90,7 +91,9 @@ const SeatLayout = () => {
       alert("Error saving layout");
     }
   };
-  
+  const cancle = () =>{
+    setScreenModal(false)
+  }
 
   return (
     <div className="dynamic-seat-layout bg-[#1a1a1a] text-[#cec3c8] min-h-screen p-6">
@@ -206,6 +209,12 @@ const SeatLayout = () => {
         className="save-btn mt-6 bg-[#db0a5b] text-white px-6 py-3 rounded-lg hover:bg-[#f62459] transition"
       >
         Save Layout
+      </button>
+      <button
+        onClick={cancle}
+        className="save-btn mt-6 bg-[#db0a5b] text-white px-6 py-3 rounded-lg hover:bg-[#f62459] transition"
+      >
+        Cancle
       </button>
     </div>
   );

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const Screen = require('../models/screen'); // Import the model
-
+const Screen = require('../models/screenSchema'); // Import the model
+const Cinemahall = require('../models/cinemahallSchema')
 // Save seat layout
 router.post("/saveLayout", async (req, res) => {
   const { screenName, totalSeats, rows, theaterId } = req.body;
@@ -11,13 +11,15 @@ router.post("/saveLayout", async (req, res) => {
   }
 
   // Simulate saving to the database
-  const savedData =  new Screen({
+  const newData =  new Screen({
     theater :theaterId,
     screenName,
     totalSeats,
     rows,
   });
-  await savedData.save();
+  const savedData = await newData.save();
+  const theater = Cinemahall.findOne({userid:theaterId})
+  await Cinemahall.findByIdAndUpdate(theater._id, { $push: { screens: savedData._id } });
 
   console.log("Saved Data:", savedData);
 

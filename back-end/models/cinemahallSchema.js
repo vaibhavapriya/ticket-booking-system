@@ -12,7 +12,8 @@ const cinemahallSchema = new mongoose.Schema({
   handicapFacility: { type: Boolean, default: false },
   photos: [{ type: String }],
   rating: { type: Number, default: 0 }, // Added rating field
-  screens: { type: mongoose.Schema.Types.ObjectId, ref: 'Screen'},
+  screens: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Screen'}],
+  shows: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Show'}],
 });
 
 const Cinemahall = mongoose.model('Cinemahall', cinemahallSchema);

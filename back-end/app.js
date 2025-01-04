@@ -5,7 +5,7 @@ const path = require('path');
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/loginRoutes');
 const clientRoutes = require('./routes/clientRoutes');
-const screenRoutes = require('./routes/seatlayoutRoutes');
+const screenRoutes = require('./routes/screenRoutes');
 const movieRoutes = require('./routes/movieRoutes')
 
 require('dotenv').config();

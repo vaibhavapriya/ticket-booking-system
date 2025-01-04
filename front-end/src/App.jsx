@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Home from './pages/Home';
 import Website from './pages/Website';
+import Movie from './pages/Movie';
 
 function App() {
 
@@ -22,7 +23,7 @@ function App() {
                 <Route path="/reset-password/:token" element={<ResetPassword />} />
                 <Route path="/company/:id" element={<Home/>} />
                 <Route path="/home" element={<Website/>} />
-                <Route path="/movie" element={<Movie/>} />
+                <Route path="/movie/:tmdbId" element={<Movie/>} />
             </Routes>
       </Router>
     </>

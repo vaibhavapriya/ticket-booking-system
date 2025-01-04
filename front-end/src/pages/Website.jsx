@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+import { Link } from 'react-router-dom';
 
 function Website() {
     const [movies, setMovies] = useState([]);
@@ -41,7 +42,7 @@ function Website() {
             // }}
             className="schedule-btn mt-4 bg-[#db0a5b] text-white px-4 py-2 rounded-lg hover:bg-[#f62459] transition"
           >
-            VIEW
+            <Link to={`/movie/${movie.tmdbId}`}>Detail</Link>
           </button>
         </div>
       ))}

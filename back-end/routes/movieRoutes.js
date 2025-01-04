@@ -1,7 +1,9 @@
 const express = require("express");
 const Movie = require("../models/movieSchema");
-const Show = require('../models/showSchema')
-const SeatLayout = require('../models/seatLayout')
+const Show = require('../models/showSchema');
+const Screen = require('../models/screenSchema');
+const Cinemahall = require("../models/cinemahallSchema");
+const { movieDetails } = require("../controllers/movieController")
 const router = express.Router();
 
 // Fetch all movies
@@ -18,7 +20,7 @@ router.get("/all", async (req, res) => {
 router.get("/screens/:id", async (req, res) => {
   const theaterId = req.params.id;
   try {
-    const halls = await SeatLayout.find({theater:theaterId});
+    const halls = await Screen.find({theater:theaterId});
     res.json(halls);
   } catch (error) {
     console.error("Error fetching halls:", error);
@@ -29,7 +31,7 @@ router.get("/screens/:id", async (req, res) => {
 // Schedule a show
 router.post("/show", async (req, res) => {
   try {
-    const { theaterId ,screenId, movieName, tmdbId, showDate, price,  totalSeats} = req.body;
+    const { theaterId ,screenId, movieName, tmdbId, movieId, showDate, price,  totalSeats} = req.body;
     console.log(req.body)
 
     if (!movieName || !theaterId || !screenId || totalSeats === 0) {
@@ -37,10 +39,17 @@ router.post("/show", async (req, res) => {
     }
 
     const newShow = new Show({
-      theaterId ,screenId, movieName, tmdbId, showDate, price,  totalSeats
+      theaterId ,screenId, movieName, tmdbId, movieId, showDate, price,  totalSeats
     });
 
-    await newShow.save();
+    const savedShow = await newShow.save();
+
+    const theater = Cinemahall.findOne({userid:theaterId})
+
+    await Cinemahall.findByIdAndUpdate(theater._id, { $push: { shows: savedShow._id } });
+    await Movie.findByIdAndUpdate(movieId, { $push: { shows: savedShow._id } });
+    await Screen.findByIdAndUpdate(screenId, { $push: { shows: savedShow._id } });
+
     res.status(201).json({ message: "Show scheduled successfully!" });
   } catch (error) {
     console.error("Error scheduling show:", error);
@@ -48,4 +57,8 @@ router.post("/show", async (req, res) => {
   }
 });
 
+router.get('/details/:tmdbId',movieDetails)
+
 module.exports = router;
+
+

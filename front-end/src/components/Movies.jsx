@@ -54,6 +54,7 @@ const Movies = () => {
           screenId: selectedScreen,
           movieName: selectedMovie.title,
           tmdbId: selectedMovie.tmdbId,
+          movieId: selectedMovie._id,
           showDate,
           price,
           totalSeats: selectedScreenSeats

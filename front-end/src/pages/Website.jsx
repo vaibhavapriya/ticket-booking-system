@@ -35,15 +35,10 @@ function Website() {
           <p className="text-sm text-[#cec3c8]">
             Release Date: {new Date(movie.releaseDate).toLocaleDateString()}
           </p>
-          <button
-            // onClick={() => {
-            //   setSelectedMovie(movie);
-            //   setShowForm(true);
-            // }}
+          <Link to={`/movie/${movie.tmdbId}`}><button
             className="schedule-btn mt-4 bg-[#db0a5b] text-white px-4 py-2 rounded-lg hover:bg-[#f62459] transition"
-          >
-            <Link to={`/movie/${movie.tmdbId}`}>Detail</Link>
-          </button>
+          >Detail</button></Link>
+          
         </div>
       ))}
     </div>

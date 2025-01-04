@@ -20,9 +20,9 @@ function Home() {
   }
   return (
 <div className="bg-[#1a1a1a] text-[#cec3c8] min-h-screen p-8 justify-center align-center">
-  <AddMovie />
+  
 
-  <div className="text-[#db0a5b] font-semibold text-xl mt-8">Theatre Profile</div>
+  <div className="text-[#db0a5b] font-semibold text-xl mt-8">Theater Profile</div>
 
   <div className='w-100 flex flex-row justify-evenly'>
   <div className="mt-4">
@@ -59,8 +59,9 @@ function Home() {
     {photoModal && <FormPhoto setPhotoModal={setPhotoModal} />}
     {screenModal && <SeatLayout setScreenModal={setScreenModal} />}
   </div>
+  <AddMovie />
     <Movies/>
-  <div className="text-[#db0a5b] font-semibold text-xl mt-8">shedule show</div>
+  <div className="text-[#db0a5b] font-semibold text-xl mt-8">sHOW SCREEN INFO WITH LAYOUT,SHOW SHEDULES BOTH WITH EDIT OPTION</div>
 
   <div className="text-[#db0a5b] font-semibold text-xl mt-4">Create Movie</div>
 </div>

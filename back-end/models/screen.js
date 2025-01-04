@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const seatLayoutSchema = new mongoose.Schema({
+const screenSchema = new mongoose.Schema({
   screenName: { type: String, required: true }, // Name of the theater
   rows: [
     {
@@ -10,8 +10,9 @@ const seatLayoutSchema = new mongoose.Schema({
   ],
   totalSeats: { type: Number },
   theater: { type: mongoose.Schema.Types.ObjectId, ref: 'Cinemahall',  },
+  shows: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Show',  }] 
 });
 
-const seatLayout = mongoose.model("SeatLayout", seatLayoutSchema);
+const screen = mongoose.model("Screen", screenSchema);
 
-module.exports = seatLayout;
+module.exports = screen;

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const SeatLayout = require('../models/seatLayout'); // Import the model
+const Screen = require('../models/screen'); // Import the model
 
 // Save seat layout
 router.post("/saveLayout", async (req, res) => {
@@ -11,7 +11,7 @@ router.post("/saveLayout", async (req, res) => {
   }
 
   // Simulate saving to the database
-  const savedData =  new SeatLayout({
+  const savedData =  new Screen({
     theater :theaterId,
     screenName,
     totalSeats,
@@ -28,7 +28,7 @@ router.post("/saveLayout", async (req, res) => {
 // Get all layouts
 router.get("/layouts", async (req, res) => {
   try {
-    const layouts = await SeatLayout.find();
+    const layouts = await Screen.find();
     res.status(200).json(layouts);
   } catch (error) {
     console.error("Error fetching layouts:", error);

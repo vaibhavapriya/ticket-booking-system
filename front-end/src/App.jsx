@@ -8,6 +8,7 @@ import ResetPassword from './pages/ResetPassword';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Home from './pages/Home';
+import Website from './pages/Website';
 
 function App() {
 
@@ -20,6 +21,8 @@ function App() {
                 <Route path="/forgotpassword" element={<ForgotPassword />} />
                 <Route path="/reset-password/:token" element={<ResetPassword />} />
                 <Route path="/company/:id" element={<Home/>} />
+                <Route path="/home" element={<Website/>} />
+                <Route path="/movie" element={<Movie/>} />
             </Routes>
       </Router>
     </>

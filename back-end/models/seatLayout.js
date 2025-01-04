@@ -8,6 +8,7 @@ const seatLayoutSchema = new mongoose.Schema({
       seats: [{ type: String }], // Array of seat identifiers, or `null` for gaps
     },
   ],
+  totalSeats: { type: Number },
   theater: { type: mongoose.Schema.Types.ObjectId, ref: 'Cinemahall',  },
 });
 

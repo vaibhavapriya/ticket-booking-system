@@ -1,0 +1,16 @@
+const mongoose = require('mongoose');
+
+const showSchema = new mongoose.Schema({
+  theaterId: { type: mongoose.Schema.Types.ObjectId, ref: 'Cinemahall', required: true },
+  screenId: { type: mongoose.Schema.Types.ObjectId, ref: 'SeatLayout', required: true },
+  movieName: { type: String, required: true },
+  tmdbId: { type: String, required: true },
+  showDate: { type: Date, required: true },
+  price: {type: Number, required:true },
+  totalSeats: {type: Number, required:true },
+  bookedSeats: [{ type: String}],
+});
+
+const Show = mongoose.model('Show', showSchema);
+
+module.exports = Show;

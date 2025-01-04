@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 
 
 const Movies = () => {
+  const theaterId = localStorage.getItem('userid');
   const [movies, setMovies] = useState([]);
+  const [screens, setScreens] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null);
-  const [showTime, setShowTime] = useState("");
-  const [screenName, setScreenName] = useState("");
-  const [seatLayout, setSeatLayout] = useState("");
+  const [selectedScreen, setSelectedScreen] = useState("");
+  const [selectedScreenSeats, setSelectedScreenSeats] = useState("");
+  const [showDate, setShowDate] = useState("");
+  const [price, setPrice] = useState(0);
 
   // Fetch movies from the backend
   useEffect(() => {
@@ -22,22 +25,39 @@ const Movies = () => {
     };
     fetchMovies();
   }, []);
+  useEffect(() => {
+    const fetchScreens = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/api/movies/screens/${theaterId}`);
+        const data = await response.json();
+        setScreens(data);
+      } catch (error) {
+        console.error("Error fetching screens:", error);
+      }
+    };
 
-  // Handle scheduling a show
+    fetchScreens();
+  }, []);
+
   const handleScheduleShow = async (e) => {
     e.preventDefault();
+    console.log(selectedScreenSeats)
 
     try {
-      const response = await fetch("http://localhost:5000/api/scheduleShow", {
+      const response = await fetch("http://localhost:5000/api/movies/show", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          movieName: selectedMovie.name,
-          showTime,
-          screenName,
-          seatLayout: seatLayout.split(","),
+          theaterId: screens.find((screen) => screen._id === selectedScreen)?.theater,
+          screenId: selectedScreen,
+          movieName: selectedMovie.title,
+          tmdbId: selectedMovie.tmdbId,
+          showDate,
+          price,
+          totalSeats: selectedScreenSeats
+
         }),
       });
 
@@ -88,62 +108,78 @@ const Movies = () => {
       ))}
     </div>
 
-    {/* Schedule Show Form */}
-    {showForm && selectedMovie && (
-      <div className="schedule-form bg-[#2d2d2d] p-6 rounded-lg shadow-md mt-8">
-        <h2 className="text-2xl font-semibold text-[#db0a5b]">
-          Schedule Show for {selectedMovie.title}
-        </h2>
-        <form onSubmit={handleScheduleShow} className="mt-4">
-          <div className="mb-4">
-            <label className="block text-lg font-medium text-[#cec3c8] mb-2">Show Time:</label>
-            <input
-              type="datetime-local"
-              value={showTime}
-              onChange={(e) => setShowTime(e.target.value)}
-              className="w-full p-2 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#db0a5b] bg-[#1a1a1a] text-[#cec3c8]"
-            />
-          </div>
+      {/* Schedule Show Form */}
+      {showForm && selectedMovie && (
+        <div className="schedule-form bg-[#2d2d2d] p-6 rounded-lg shadow-md mt-8">
+          <h2 className="text-2xl font-semibold text-[#db0a5b]">
+            Schedule Show for {selectedMovie.title}
+          </h2>
+          <form onSubmit={handleScheduleShow} className="mt-4">
+            <div className="mb-4">
+              <label className="block text-lg font-medium text-[#cec3c8] mb-2">
+                Select Screen:
+              </label>
+              <select
+                value={selectedScreen}
+                onChange={(e) => {
+                  const screenId = e.target.value;
+                  setSelectedScreen(screenId);
 
-          <div className="mb-4">
-            <label className="block text-lg font-medium text-[#cec3c8] mb-2">Screen Name:</label>
-            <input
-              type="text"
-              value={screenName}
-              onChange={(e) => setScreenName(e.target.value)}
-              placeholder="Enter Screen Name"
-              className="w-full p-2 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#db0a5b] bg-[#1a1a1a] text-[#cec3c8]"
-            />
-          </div>
+                  // Find the selected screen and update the total seats
+                  const selected = screens.find((screen) => screen._id === screenId);
+                  setSelectedScreenSeats(selected?.totalSeats || 0);
+                }}
+                className="w-full p-2 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#db0a5b] bg-[#1a1a1a] text-[#cec3c8]"
+              >
+                <option value="">Select a Screen</option>
+                {screens.map((screen) => (
+                  <option key={screen._id} value={screen._id}>
+                    {screen.screenName} - {screen.totalSeats} Seats
+                  </option>
+                ))}
+              </select>
+            </div>
 
-          <div className="mb-4">
-            <label className="block text-lg font-medium text-[#cec3c8] mb-2">Seat Layout (Comma Separated):</label>
-            <input
-              type="text"
-              value={seatLayout}
-              onChange={(e) => setSeatLayout(e.target.value)}
-              placeholder="e.g., A1,A2,A3"
-              className="w-full p-2 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#db0a5b] bg-[#1a1a1a] text-[#cec3c8]"
-            />
-          </div>
+            <div className="mb-4">
+              <label className="block text-lg font-medium text-[#cec3c8] mb-2">
+                Select Date & Time:
+              </label>
+              <input
+                type="datetime-local"
+                value={showDate}
+                onChange={(e) => setShowDate(e.target.value)}
+                className="w-full p-2 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#db0a5b] bg-[#1a1a1a] text-[#cec3c8]"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-lg font-medium text-[#cec3c8] mb-2">
+                Price:
+              </label>
+              <input
+                type="price"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                className="w-full p-2 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#db0a5b] bg-[#1a1a1a] text-[#cec3c8]"
+              />
+            </div>
 
-          <div className="mt-6">
-            <button
-              type="submit"
-              className="bg-[#db0a5b] text-white px-6 py-3 rounded-lg hover:bg-[#f62459] transition"
-            >
-              Schedule Show
-            </button>
-            <button
-              onClick={() => setShowForm(false)}
-              className="ml-4 bg-gray-700 text-white px-6 py-3 rounded-lg hover:bg-gray-600 transition"
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
-      </div>
-    )}
+            <div className="mt-6">
+              <button
+                type="submit"
+                className="bg-[#db0a5b] text-white px-6 py-3 rounded-lg hover:bg-[#f62459] transition"
+              >
+                Schedule Show
+              </button>
+              <button
+                onClick={() => setShowForm(false)}
+                className="ml-4 bg-gray-700 text-white px-6 py-3 rounded-lg hover:bg-gray-600 transition"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
   </div>
   );
 };

@@ -10,6 +10,7 @@ import Signup from './pages/Signup';
 import Home from './pages/Home';
 import Website from './pages/Website';
 import Movie from './pages/Movie';
+import BookTickets from './pages/BookTickets';
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
                 <Route path="/company/:id" element={<Home/>} />
                 <Route path="/home" element={<Website/>} />
                 <Route path="/movie/:tmdbId" element={<Movie/>} />
+                <Route path="/book/:tmdbId" element={<BookTickets/>} />
             </Routes>
       </Router>
     </>

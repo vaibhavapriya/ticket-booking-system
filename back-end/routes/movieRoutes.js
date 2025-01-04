@@ -3,7 +3,7 @@ const Movie = require("../models/movieSchema");
 const Show = require('../models/showSchema');
 const Screen = require('../models/screenSchema');
 const Cinemahall = require("../models/cinemahallSchema");
-const { movieDetails } = require("../controllers/movieController")
+const { movieDetails, movieShows } = require("../controllers/movieController")
 const router = express.Router();
 
 // Fetch all movies
@@ -58,6 +58,7 @@ router.post("/show", async (req, res) => {
 });
 
 router.get('/details/:tmdbId',movieDetails)
+router.get('/shows/:tmdbId',movieShows)
 
 module.exports = router;
 

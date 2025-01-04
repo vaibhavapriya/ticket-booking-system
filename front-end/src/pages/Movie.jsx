@@ -1,5 +1,5 @@
 import React, {useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 
 function Movie() {
@@ -89,9 +89,9 @@ function Movie() {
             </p>
           )}
           {showsAvailable ? (
-            <button className="book-btn mt-4 bg-[#db0a5b] text-white px-4 py-2 rounded-lg hover:bg-[#f62459] transition">
-              Book Shows
-            </button>
+            <Link to={`/book/${tmdbId}`}><button
+            className="schedule-btn mt-4 bg-[#db0a5b] text-white px-4 py-2 rounded-lg hover:bg-[#f62459] transition"
+          >Book Ticket</button></Link>
           ) : (
             <p className="text-lg text-[#cec3c8] my-2">No screens available</p>
           )}

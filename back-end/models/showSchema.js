@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const showSchema = new mongoose.Schema({
   theaterId: { type: mongoose.Schema.Types.ObjectId, ref: 'Cinemahall', required: true },
-  screenId: { type: mongoose.Schema.Types.ObjectId, ref: 'SeatLayout', required: true },
+  screenId: { type: mongoose.Schema.Types.ObjectId, ref: 'Screen', required: true },
   movieId:  { type: mongoose.Schema.Types.ObjectId, ref: 'Movie', required: true },
   movieName: { type: String, required: true },
   tmdbId: { type: String, required: true },

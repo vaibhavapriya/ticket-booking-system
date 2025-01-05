@@ -11,6 +11,7 @@ import Home from './pages/Home';
 import Website from './pages/Website';
 import Movie from './pages/Movie';
 import BookTickets from './pages/BookTickets';
+import SeatBookingPage from './pages/SeatBooking';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
                 <Route path="/home" element={<Website/>} />
                 <Route path="/movie/:tmdbId" element={<Movie/>} />
                 <Route path="/book/:tmdbId" element={<BookTickets/>} />
+                <Route path="/book-seats/:id" element={<SeatBookingPage/>}/>
             </Routes>
       </Router>
     </>

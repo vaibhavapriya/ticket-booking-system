@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, } from "react-router-dom";
 import axios from "axios";
 
 function BookTickets() {
@@ -7,6 +7,11 @@ function BookTickets() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [movie, setMovie] = useState({}); // Default empty array for theaters
   const [dates, setDates] = useState([]);
+  const navigate = useNavigate();
+
+  // const handleClickSeat = () => {
+  //   navigate(`/book-seats/${show._id}`); // Navigate to seat booking page
+  // };
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -122,7 +127,7 @@ function BookTickets() {
 
                     return (
                       <div
-                        key={show._id}
+                        key={show._id} onClick={() => navigate(`/book-seats/${show._id}`)}
                         className={`show-time ${bgColor} text-white px-4 py-2 m-2 rounded cursor-pointer`}
                       >
                         {new Date(show.showDate).toLocaleTimeString([], {

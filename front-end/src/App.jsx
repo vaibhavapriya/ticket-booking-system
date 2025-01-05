@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; 
 
 import './App.css'
@@ -12,8 +12,11 @@ import Website from './pages/Website';
 import Movie from './pages/Movie';
 import BookTickets from './pages/BookTickets';
 import SeatBooking from './pages/SeatBooking';
+import Payment from './pages/Payment';
 
 function App() {
+  const [showData, setShowData] = useState(null);
+  const [selectedSeats, setSelectedSeats] = useState([]);
 
   return (
     <>
@@ -28,6 +31,8 @@ function App() {
                 <Route path="/movie/:tmdbId" element={<Movie/>} />
                 <Route path="/book/:tmdbId" element={<BookTickets/>} />
                 <Route path="/book-seats/:id" element={<SeatBooking/>}/>
+                <Route path="/payment" element={<Payment/>} />
+                {/* showData={showData} setShowData={setShowData} selectedSeats={selectedSeats} setSelectedSeats={setSelectedSeats} totalPrice={totalPrice} */}
             </Routes>
       </Router>
     </>

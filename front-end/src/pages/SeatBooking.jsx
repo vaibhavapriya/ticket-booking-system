@@ -3,13 +3,13 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 
 const SeatBooking = () => {
-  const { id } = useParams(); // Get show ID from URL
+  const { id } = useParams(); 
   const navigate = useNavigate();
   
-  const [seats, setSeats] = useState([]); // Stores seat layout data
-  const [selectedSeats, setSelectedSeats] = useState([]); // Tracks selected seats
-  const [totalPrice, setTotalPrice] = useState(0); // Tracks total price
-  const [showData, setShowData] = useState(null); // Holds fetched show data
+  const [seats, setSeats] = useState([]);
+  const [selectedSeats, setSelectedSeats] = useState([]); 
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [showData, setShowData] = useState(null); 
 
   useEffect(() => {
     const fetchSeatLayout = async () => {
@@ -47,17 +47,24 @@ const SeatBooking = () => {
     console.log(selectedSeats)
   };
 
-  const handleSubmit = async () => {
-    try {
-      // Send selected seats to the backend to update bookedSeats
-      const response = await axios.post(`/api/book-seats/${id}`, { selectedSeats });
-      alert('Seats booked successfully!');
-      console.log(response.data); // Updated show data with new booked seats
-      navigate(`/confirmation/${id}`); // Redirect to confirmation page
-    } catch (error) {
-      alert('Error booking seats: ' + error.response.data.message);
+  const handleSubmit = () => {
+    if (selectedSeats.length === 0) {
+      alert("Please select at least one seat.");
+      return;
     }
+  
+    navigate(`/payment`, {
+      state: {
+        movieName: showData.movieName,
+        theaterName: showData.theaterName,
+        location: showData.location,
+        screenName: showData.screenName,
+        selectedSeats,
+        totalPrice,
+      },
+    });
   };
+  
 
   // Render seat layout based on rows and seats
   const renderSeats = () => {
@@ -107,7 +114,7 @@ const SeatBooking = () => {
         <p>Selected Seats: {selectedSeats}</p>
       </div>
       <button onClick={handleSubmit} className="booking-btn">
-        Confirm Booking
+        book ticket
       </button>
     </div>
   );

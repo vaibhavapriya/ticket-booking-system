@@ -4,6 +4,7 @@ import FormPhoto from '../components/FormPhoto'
 import SeatLayout from '../components/seatLayout';
 import AddMovie from '../components/AddMovie';
 import Movies from '../components/Movies';
+import ManageShows from '../components/ManageShows.jsx';
 
 function Home() {
   const [profileModal,setProfileModal]=useState(false);
@@ -61,9 +62,7 @@ function Home() {
   </div>
   <AddMovie />
     <Movies/>
-  <div className="text-[#db0a5b] font-semibold text-xl mt-8">sHOW SCREEN INFO WITH LAYOUT,SHOW SHEDULES BOTH WITH EDIT OPTION</div>
-
-  <div className="text-[#db0a5b] font-semibold text-xl mt-4">Create Movie</div>
+    <ManageShows/>
 </div>
 
   )

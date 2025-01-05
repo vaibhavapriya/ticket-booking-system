@@ -1,6 +1,10 @@
 const express = require('express');
 const Show = require('../models/showSchema'); // Assuming the Show model is in models/Show.js
 const Screen = require('../models/screenSchema'); // Assuming the Screen model is in models/Screen.js
+const {
+  getSchedules,
+  updateSchedule,
+} = require("../controllers/showController");
 
 const router = express.Router();
 
@@ -24,5 +28,13 @@ router.get('/:showId', async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
+
+// Fetch all schedules
+router.get("/bytheater/:theaterID", getSchedules);
+
+// Update a schedule
+router.put("/:id", updateSchedule);
+
+
 
 module.exports = router;

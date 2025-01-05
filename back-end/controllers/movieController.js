@@ -40,7 +40,6 @@ exports.movieShows= async (req, res) => {
         tmdbId: movie.tmdbId,
         theaterId: cinemahall.userid// Ensure shows are related to this Cinemahall
       }).exec();
-      console.log(shows)
 
       // Step 3b: Attach the populated shows to the Cinemahall object
       cinemahall.shows = shows;

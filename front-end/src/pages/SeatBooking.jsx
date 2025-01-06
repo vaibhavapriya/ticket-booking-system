@@ -15,9 +15,19 @@ const SeatBooking = () => {
     const fetchSeatLayout = async () => {
       try {
         const response = await axios.get(`http://localhost:5000/api/shows/${id}`);
-        setShowData(response.data);
-        setSeats(response.data.screenId.rows); // Extract rows from the screenId object
-        setTotalPrice(0); // Reset total price on load
+        const { show, theater } = response.data;  // Destructure the show and theater data
+        
+        console.log('Fetched Show Data:', show);
+        console.log('Theater Data:', theater);
+        
+        setShowData(show);  // Set show data after fetching
+        
+        // After setting showData, update seats from showData
+        if (show && show.screenId && show.screenId.rows) {
+          setSeats(show.screenId.rows);  // Set seats based on rows from screenId
+        }
+
+        setTotalPrice(0); // Reset the total price on data fetch
       } catch (error) {
         console.error('Error fetching seat layout:', error);
       }
@@ -29,22 +39,19 @@ const SeatBooking = () => {
   const handleSeatClick = (seat) => {
     console.log(`Seat clicked: ${seat}`);
 
-    // Prevent booking if the seat is already booked
     if (showData.bookedSeats.includes(seat)) {
       alert(`Seat ${seat} is already booked.`);
       return;
     }
 
-    // If seat is already selected, unselect it
     if (selectedSeats.includes(seat)) {
       setSelectedSeats(selectedSeats.filter((s) => s !== seat));
       setTotalPrice((prevTotal) => prevTotal - showData.price);
     } else {
-      // If seat is not selected, select it
       setSelectedSeats((prevSelected) => [...prevSelected, seat]);
       setTotalPrice((prevTotal) => prevTotal + showData.price);
     }
-    console.log(selectedSeats)
+    console.log(selectedSeats);
   };
 
   const handleSubmit = () => {
@@ -64,20 +71,18 @@ const SeatBooking = () => {
       },
     });
   };
-  
 
-  // Render seat layout based on rows and seats
   const renderSeats = () => {
     return seats.map((row, rowIndex) => (
-      <div key={rowIndex} className="flex mb-2">
-        <div className="mr-4 font-bold">{row.rowLabel}</div> {/* Row Label */}
+      <div key={rowIndex} className="flex mb-4">
+        <div className="mr-4 font-bold text-xl text-white">{row.rowLabel}</div>
         {row.seats.map((seat, index) => {
           if (seat === null) {
             return (
               <div
                 key={`null-${index}`}
-                style={{ width: '40px', height: '40px', margin: '5px' }}
-              ></div> // Placeholder for null seats
+                className="w-10 h-10 mx-1 bg-gray-300" // Placeholder for null seats
+              ></div>
             );
           }
 
@@ -88,10 +93,10 @@ const SeatBooking = () => {
             <button
               key={seat}
               onClick={() => handleSeatClick(seat)}
-              className={`${isBooked ? 'bg-gray-500' : isSelected ? 'bg-green-500' : 'bg-white-500'} px-2 py-1 rounded`}
+              className={`${isBooked ? 'bg-gray-500' : isSelected ? 'bg-green-500' : 'bg-white'} w-10 h-10 mx-1 rounded-lg border border-gray-400 hover:bg-green-200 focus:outline-none`}
               disabled={isBooked}
             >
-              {seat}
+              <span className="text-white">{seat}</span>
             </button>
           );
         })}
@@ -100,21 +105,26 @@ const SeatBooking = () => {
   };
 
   if (!showData) {
-    return <div>Loading...</div>;
+    return <div className="text-center text-xl font-semibold text-white">Loading...</div>;
   }
 
   return (
-    <div>
-      <h1>Seat Booking for {showData.movieName}</h1>
-      <div className="seat-layout">{renderSeats()}</div>
-      <div className="total-price">
-        <p>Total Price: ₹{totalPrice}</p>
+    <div className="max-w-4xl mx-auto p-6">
+      <h1 className="text-3xl font-bold mb-4 text-center text-white">Seat Booking for {showData.movieName}</h1>
+      <div className="seat-layout mb-6">{renderSeats()}</div>
+
+      <div className="total-price text-xl mb-4 text-white">
+        <p><strong>Total Price:</strong> ₹{totalPrice}</p>
       </div>
-      <div className="total-price">
-        <p>Selected Seats: {selectedSeats}</p>
+      <div className="total-price text-xl mb-4 text-white">
+        <p><strong>Selected Seats:</strong> {selectedSeats.join(', ')}</p>
       </div>
-      <button onClick={handleSubmit} className="booking-btn">
-        book ticket
+
+      <button 
+        onClick={handleSubmit} 
+        className="booking-btn bg-blue-500 text-white py-2 px-6 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
+        Book Ticket
       </button>
     </div>
   );

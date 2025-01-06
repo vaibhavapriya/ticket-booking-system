@@ -20,29 +20,10 @@ const Header = () => {
           <ul className="flex space-x-6">
                     <li
                       className="cursor-pointer hover:text-gray-300"
-                      onClick={() => navigate("/profile")}
-                    >
-                      Profile
-                    </li>
-                    <li
-                      className="cursor-pointer hover:text-gray-300"
                       onClick={() => navigate("/viewbookings")}
                     >
                       View Bookings
                     </li>
-                    <li
-                      className="cursor-pointer hover:text-gray-300"
-                      onClick={() => navigate("/cancel-booking")}
-                    >
-                      Cancel Booking
-                    </li>
-
-                <li
-                  className="cursor-pointer text-red-500 hover:text-red-400"
-                  onClick={handleLogout}
-                >
-                  Logout
-                </li>
 
                 <li
                   className="cursor-pointer hover:text-gray-300"
@@ -51,6 +32,15 @@ const Header = () => {
                   Login
                 </li>
 
+
+                <li
+                  className="cursor-pointer text-red-500 hover:text-red-400"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </li>
+
+                
           </ul>
         </nav>
       </div>

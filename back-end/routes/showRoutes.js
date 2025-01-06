@@ -3,6 +3,7 @@ const Show = require('../models/showSchema'); // Assuming the Show model is in m
 const Screen = require('../models/screenSchema'); // Assuming the Screen model is in models/Screen.js
 const CinemaHall = require('../models/cinemahallSchema')
 const { getSchedules, updateSchedule, } = require("../controllers/showController");
+const Cinemahall = require('../models/cinemahallSchema');
 
 const router = express.Router();
 
@@ -45,6 +46,43 @@ router.get("/bytheater/:theaterID", getSchedules);
 // Update a schedule
 router.put("/:id", updateSchedule);
 
+router.get('/theater/:theaterID', async (req, res) => {
+
+  try {
+    const { theaterID } = req.params; // theaterId is passed as a query parameter
+    if (!theaterID) {
+      return res.status(400).json({ error: 'theaterId parameter is required' });
+    }
+    // Find the Cinemahall document based on the provided theaterId (userid)
+    const theater = await Cinemahall.findOne({ userid: theaterID });
+
+    const shows = await Show.find({ theaterId: theaterID })
+      .populate('movieId')  // Populate movie details
+      .sort({ showDate: 1 });  // Sort shows by showDate
+
+    if (!shows.length) {
+      return res.status(404).json({ error: 'No shows found for the specified theater' });
+    }
+
+    // Group shows by movieName
+    const groupedShows = shows.reduce((acc, show) => {
+      const movieName = show.movieName;
+
+      if (!acc[movieName]) {
+        acc[movieName] = [];
+      }
+
+      acc[movieName].push(show);
+
+      return acc;
+    }, {});
+
+    res.json({ shows: groupedShows , theater});
+  } catch (error) {
+    console.error("Error fetching shows:", error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
 
 
 

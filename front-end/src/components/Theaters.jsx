@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUtensils, faParking, faWheelchair } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import { Link } from 'react-router-dom';
 
 const Theaters = () => {
   const [theaters, setTheaters] = useState([]);
@@ -84,6 +85,8 @@ const Theaters = () => {
               </button>
             </div>
           </div>
+          <Link to={`/t/${currentTheater.userid}`}>About</Link>
+          <p>{currentTheater.userid}</p>
           <h2 className="text-xl font-semibold mt-4 text-white">{currentTheater.name}</h2>
           <p className="text-white text-gray-600">{currentTheater.city}</p>
           <p className="text-white text-gray-600">{currentTheater.address}</p>

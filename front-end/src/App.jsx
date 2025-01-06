@@ -22,12 +22,12 @@ function App() {
     <>
       <Router>
             <Routes>
-                <Route path="/" element={<Login />} />
+                <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/forgotpassword" element={<ForgotPassword />} />
                 <Route path="/reset-password/:token" element={<ResetPassword />} />
                 <Route path="/company/:id" element={<Home/>} />
-                <Route path="/home" element={<Website/>} />
+                <Route path="/" element={<Website/>} />
                 <Route path="/movie/:tmdbId" element={<Movie/>} />
                 <Route path="/book/:tmdbId" element={<BookTickets/>} />
                 <Route path="/book-seats/:id" element={<SeatBooking/>}/>

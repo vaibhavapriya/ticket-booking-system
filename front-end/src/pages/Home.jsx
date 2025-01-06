@@ -5,8 +5,17 @@ import SeatLayout from '../components/seatLayout';
 import AddMovie from '../components/AddMovie';
 import Movies from '../components/Movies';
 import ManageShows from '../components/ManageShows.jsx';
+import { useNavigate } from "react-router-dom";
 
 function Home() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.setItem('token', null);
+    localStorage.setItem('userid', null);
+    navigate("/login"); // Redirect to login page
+  };
+
   const [profileModal,setProfileModal]=useState(false);
   const [photoModal,setPhotoModal]=useState(false);
   const [screenModal,setScreenModal]=useState(false);
@@ -20,9 +29,34 @@ function Home() {
     setScreenModal(true)
   }
   return (
+    
 <div className="bg-[#1a1a1a] text-[#cec3c8] min-h-screen p-8 justify-center align-center">
   
+<header className="bg-black text-white py-4 shadow-lg">
+      <div className="container mx-auto flex justify-between items-center px-6">
+        <div className="text-2xl font-bold cursor-pointer" onClick={() => navigate("/")}>
+          Movie Theater
+        </div>
+        <nav>
+          <ul className="flex space-x-6">
+                <li
+                  className="cursor-pointer text-red-500 hover:text-red-400"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </li>
 
+                <li
+                  className="cursor-pointer hover:text-gray-300"
+                  onClick={() => navigate("/login")}
+                >
+                  Login
+                </li>
+
+          </ul>
+        </nav>
+      </div>
+    </header>
   <div className="text-[#db0a5b] font-semibold text-xl mt-8">Theater Profile</div>
 
   <div className='w-100 flex flex-row justify-evenly'>

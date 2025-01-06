@@ -78,7 +78,7 @@ const ManageShows = () => {
           })}
         </td>
         <td className="p-3 border border-[#e0e0e0] text-white">
-          ${show.price}
+        ₹{show.price}
         </td>
         <td className="p-3 border border-[#e0e0e0] text-white">
           {show.totalSeats}

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import { Link } from 'react-router-dom';
 import SearchMovie from '../components/SearchMovie';
+import Header from '../components/Header'
 
 function Website() {
     const [movies, setMovies] = useState([]);
@@ -18,6 +19,7 @@ function Website() {
   }, []);
   return (
     <div>
+      <Header/>
       <SearchMovie/>
       
     {/* Movies Grid */}

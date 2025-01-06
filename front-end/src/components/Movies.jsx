@@ -89,7 +89,7 @@ const Movies = () => {
           <img
             src={`https://image.tmdb.org/t/p/w500${movie.poster}`}
             alt={movie.title}
-            className="movie-poster w-full h-64 object-cover rounded-lg mb-4"
+            className="movie-poster w-full h-100 object-cover rounded-lg mb-4"
           />
           <h2 className="text-xl font-semibold text-[#db0a5b]">{movie.title}</h2>
           <p className="text-sm text-[#cec3c8] my-2">{movie.overview}</p>

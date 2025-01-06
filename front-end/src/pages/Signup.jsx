@@ -34,7 +34,7 @@ const Signup = () => {
 
             if (response.status === 201) {
                 // Redirect to login page after successful signup
-                navigate('/');
+                navigate('/login');
             }
         } catch (err) {
             setLoading(false);

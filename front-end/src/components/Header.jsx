@@ -12,8 +12,8 @@ const Header = () => {
 
   return (
     <header className="bg-black text-white py-4 shadow-lg">
-      <div className="container mx-auto flex justify-between items-center px-6">
-        <div className="text-2xl font-bold cursor-pointer" onClick={() => navigate("/")}>
+      <div className="container mx-auto flex justify-between items-center px-6 pb-6">
+        <div className="text-2xl font-bold cursor-pointer text-[#db0a5b]" onClick={() => navigate("/")}>
           Movie Theater
         </div>
         <nav>

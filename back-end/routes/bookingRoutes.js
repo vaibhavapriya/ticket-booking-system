@@ -19,7 +19,7 @@ const sendBookingConfirmationEmail = async (email, bookingDetails) => {
     });
 
     const message = {
-      from: process.env.EMAIL_USER,
+      from: process.env.SMTP_USER,
       to: email,
       subject: `Booking Confirmation: ${bookingDetails.movieName}`,
       text: `
@@ -78,7 +78,7 @@ router.post('/', validateToken, async (req, res) => {
       return res.status(404).send({ message: 'Show not found' });
     }
 
-    const showtime = show.showtime; // Extract showtime from the show document
+    const showtime = show.showDate; // Extract showtime from the show document
 
     // Check if any of the selected seats are already booked
     const uniqueSelectedSeats = [...new Set(selectedSeats)];

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHamburger, faParking, faWheelchair } from "@fortawesome/free-solid-svg-icons";
@@ -86,9 +86,9 @@ function BookTickets() {
               {/* Theater Details */}
               <div className="theater-header flex justify-between items-center mb-4">
                 <div>
-                  <h3 className="text-lg font-bold text-[#333]">
+                <Link to={`/t/${theater.userid}`}><h3 className="text-lg font-bold text-[#333] hover:text-[#db0a5b]">
                     {theater.name}
-                  </h3>
+                  </h3></Link>
                   <p className="text-sm text-[#777]">{theater.address}</p>
                   <p className="text-sm text-[#777]">{theater.city}</p>
                 </div>

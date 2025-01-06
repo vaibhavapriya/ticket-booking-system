@@ -85,9 +85,8 @@ const Theaters = () => {
               </button>
             </div>
           </div>
-          <Link to={`/t/${currentTheater.userid}`}>About</Link>
-          <p>{currentTheater.userid}</p>
-          <h2 className="text-xl font-semibold mt-4 text-white">{currentTheater.name}</h2>
+          <Link to={`/t/${currentTheater.userid}`}><h2 className="text-xl font-semibold mt-4 text-white hover:text-[#db0a5b]">{currentTheater.name}</h2></Link>
+          
           <p className="text-white text-gray-600">{currentTheater.city}</p>
           <p className="text-white text-gray-600">{currentTheater.address}</p>
           <div className="flex items-center gap-4 mt-4">

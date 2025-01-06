@@ -5,8 +5,8 @@ const Header = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.setItem('token', null);
-    localStorage.setItem('userid', null);
+    localStorage.removeItem('token');
+    localStorage.removeItem('userid');
     navigate("/login");// Redirect to login page
   };
 

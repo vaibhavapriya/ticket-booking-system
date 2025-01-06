@@ -17,7 +17,9 @@ const Login = () => {
             localStorage.setItem('token', token);
             localStorage.setItem('userid', id);
             // Navigate based on role
+            const redirectTo = location.state?.from || "/";
             if (role === 'Cinemahall') navigate(`/company/${id}`);
+            else navigate(redirectTo);
         } catch (err) {
             //setError(err.response.data.message || 'Something went wrong');
             console.error(err.response.data.message);

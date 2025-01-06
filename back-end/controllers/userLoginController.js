@@ -55,12 +55,6 @@ exports.signup = async (req, res) => {
             email:newUser.email,
         });
         console.log('hi')
-    } else if (role === 'Admin') {
-        await Admin.create({
-            userid: newUser._id,
-        });
-    } else {
-        return res.status(400).json({ message: 'Invalid role specified.' });
     }
 
       res.status(201).json({ message: 'User registered successfully' });

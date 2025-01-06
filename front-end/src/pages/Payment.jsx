@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements, CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -24,6 +24,14 @@ const PaymentForm = () => {
     totalPrice,
   } = location.state || {};
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    console.log(token)
+    if (!token) {
+      navigate("/login", { state: { from: location.pathname } });
+    }
+  }, [navigate, location.pathname]);
+
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -31,29 +39,39 @@ const PaymentForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (!stripe || !elements) {
       setMessage("Stripe has not loaded yet. Please try again later.");
       return;
     }
-
+  
+    const token = localStorage.getItem("token");
+  
+    if (!token) {
+      alert("You need to log in to continue.");
+      navigate("/login"); // Redirect to login page
+      return;
+    }
+  
     setIsLoading(true);
-
+  
     try {
       // Create a payment intent on the server
-      const { data } = await axios.post("http://localhost:5000/api/pay/createpaymentintent", {
-        amount: usdPrice, // Send USD amount
-      });
-
+      const { data } = await axios.post(
+        "http://localhost:5000/api/pay/createpaymentintent",
+        { amount: usdPrice }, // Send USD amount
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+  
       const clientSecret = data.clientSecret;
-
+  
       // Confirm the payment
       const paymentResult = await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
           card: elements.getElement(CardElement),
         },
       });
-
+  
       if (paymentResult.error) {
         setMessage(`Payment failed: ${paymentResult.error.message}`);
       } else if (paymentResult.paymentIntent.status === "succeeded") {
@@ -63,27 +81,36 @@ const PaymentForm = () => {
           selectedSeats,
           movieName,
           theaterName,
-          theaterLocation:theaterLocation  || "Unknown Location",
+          theaterLocation: theaterLocation || "Unknown Location",
           screenName,
           totalPrice,
-          orderId: paymentResult.paymentIntent.id, };
-                  // Send booking details to the server
-        await axios.post("http://localhost:5000/api/bookings", bookingData);
-        
-        console.log("tickets conformed")
-        // Navigate to confirmation page
-        // navigate("/confirmation", {
-        //   state: { bookingData },
-        // });
+          orderId: paymentResult.paymentIntent.id,
+        };
+  
+        // Send booking details to the server
+        await axios.post("http://localhost:5000/api/bookings", bookingData, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+  
+        console.log("Tickets confirmed");
+        navigate("/confirmation", { state: { bookingData } });
       }
     } catch (error) {
-      console.error("Error processing payment:", error);
-      setMessage("Payment failed. Please try again.");
+      if (error.response && error.response.status === 401) {
+        alert("Session expired. Please log in again.");
+        navigate("/login"); // Redirect to login page
+      } else if (error.response && error.response.status === 403) {
+        alert("You need to log in to continue.");
+        navigate("/login"); // Redirect to login page
+      } else {
+        console.error("Error processing payment:", error);
+        setMessage("Payment failed. Please try again.");
+      }
     }
-
+  
     setIsLoading(false);
   };
-
+  
   return (
     <div>
       <div className="confirmation-page text-white">

@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Booking = require('../models/bookingSchema')
+const Show = require('../models/showSchema')
 
 
 router.post('/', async (req, res) => {
@@ -19,6 +20,17 @@ router.post('/', async (req, res) => {
     });
   
     await newBooking.save();
+        // Push the selected seats into the bookedSeats array of the corresponding show
+        const updatedShow = await Show.findByIdAndUpdate(
+          showId,
+          { $push: { bookedSeats: { $each: selectedSeats } } },
+          { new: true }
+        );
+    
+        if (!updatedShow) {
+          return res.status(404).send({ message: 'Show not found' });
+        }
+    
   
     res.status(201).send({ message: 'Booking created successfully' });
   });

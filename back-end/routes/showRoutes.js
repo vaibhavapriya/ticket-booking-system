@@ -2,7 +2,7 @@ const express = require('express');
 const Show = require('../models/showSchema'); // Assuming the Show model is in models/Show.js
 const Screen = require('../models/screenSchema'); // Assuming the Screen model is in models/Screen.js
 const CinemaHall = require('../models/cinemahallSchema')
-const { getSchedules, updateSchedule, updateSeats} = require("../controllers/showController");
+const { getSchedules, updateSchedule, } = require("../controllers/showController");
 
 const router = express.Router();
 
@@ -45,7 +45,6 @@ router.get("/bytheater/:theaterID", getSchedules);
 // Update a schedule
 router.put("/:id", updateSchedule);
 
-router.put('/updateSeats',updateSeats)
 
 
 

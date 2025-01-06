@@ -70,11 +70,6 @@ const PaymentForm = () => {
                   // Send booking details to the server
         await axios.post("http://localhost:5000/api/bookings", bookingData);
         
-        // Update reserved seats in the show table
-        await axios.put("http://localhost:5000/api/shows/updateSeats", {
-          showId,
-          reservedSeats:selectedSeats,
-        });
         console.log("tickets conformed")
         // Navigate to confirmation page
         // navigate("/confirmation", {

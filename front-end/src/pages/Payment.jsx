@@ -60,7 +60,7 @@ const PaymentForm = () => {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/api/pay/createpaymentintent",
+        "https://ticket-booking-system-7vpl.onrender.com/api/pay/createpaymentintent",
         { amount: usdPrice },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -90,7 +90,7 @@ const PaymentForm = () => {
           phoneNumber,
         };
 
-        await axios.post("http://localhost:5000/api/bookings", bookingData, {
+        await axios.post("https://ticket-booking-system-7vpl.onrender.com/api/bookings", bookingData, {
           headers: { Authorization: `Bearer ${token}` },
         });
 

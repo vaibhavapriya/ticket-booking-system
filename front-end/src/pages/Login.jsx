@@ -12,7 +12,7 @@ const Login = () => {
     const handleLogin = async () => {
         setError('');
         try {
-            const res = await axios.post('http://localhost:5000/auth/login', { email, password });
+            const res = await axios.post('https://ticket-booking-system-7vpl.onrender.com/auth/login', { email, password });
             const { token, role, id } = res.data;
             localStorage.setItem('token', token);
             localStorage.setItem('userid', id);

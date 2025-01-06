@@ -16,7 +16,7 @@ const ViewBookings = () => {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/bookings", {
+        const response = await axios.get("https://ticket-booking-system-7vpl.onrender.com/api/bookings", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -40,7 +40,7 @@ const ViewBookings = () => {
     } else {
       try {
         await axios.post(
-          "http://localhost:5000/api/bookings/cancel",
+          "https://ticket-booking-system-7vpl.onrender.com/api/bookings/cancel",
           { bookingId },
           {
             headers: { Authorization: `Bearer ${token}` },

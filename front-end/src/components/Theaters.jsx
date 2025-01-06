@@ -13,7 +13,7 @@ const Theaters = () => {
   useEffect(() => {
     const fetchCinemaHalls = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/cinemahall");
+        const response = await axios.get("https://ticket-booking-system-7vpl.onrender.com/api/cinemahall");
         setTheaters(response.data);
       } catch (error) {
         console.error("Error fetching cinema halls:", error.message);

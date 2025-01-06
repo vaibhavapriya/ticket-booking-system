@@ -10,7 +10,7 @@ function Website() {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/movies/all");
+        const response = await axios.get("https://ticket-booking-system-7vpl.onrender.com/api/movies/all");
         const data = await response.data;
         setMovies(data);
       } catch (error) {

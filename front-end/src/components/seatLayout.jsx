@@ -70,7 +70,7 @@ const SeatLayout = ({setScreenModal}) => {
         theaterId,
       };
   
-      const response = await fetch("http://localhost:5000/api/screens/saveLayout", {
+      const response = await fetch("https://ticket-booking-system-7vpl.onrender.com/api/screens/saveLayout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

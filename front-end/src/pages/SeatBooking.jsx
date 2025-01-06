@@ -18,7 +18,7 @@ const SeatBooking = () => {
   useEffect(() => {
     const fetchSeatLayout = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/shows/${id}`);
+        const response = await axios.get(`https://ticket-booking-system-7vpl.onrender.com/api/shows/${id}`);
         const { show, theater } = response.data;
 
         setShowData(show);

@@ -16,7 +16,7 @@ const Movies = () => {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/movies/all");
+        const response = await fetch("https://ticket-booking-system-7vpl.onrender.com/api/movies/all");
         const data = await response.json();
         setMovies(data);
       } catch (error) {
@@ -28,7 +28,7 @@ const Movies = () => {
   useEffect(() => {
     const fetchScreens = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/movies/screens/${theaterId}`);
+        const response = await fetch(`https://ticket-booking-system-7vpl.onrender.com/api/movies/screens/${theaterId}`);
         const data = await response.json();
         setScreens(data);
       } catch (error) {
@@ -44,7 +44,7 @@ const Movies = () => {
     console.log(selectedScreenSeats)
 
     try {
-      const response = await fetch("http://localhost:5000/api/movies/show", {
+      const response = await fetch("https://ticket-booking-system-7vpl.onrender.com/api/movies/show", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -20,7 +20,7 @@ function TheaterTickets() {
     const fetchTheaterData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/shows/theater/${theaterID}`
+          `https://ticket-booking-system-7vpl.onrender.com/api/shows/theater/${theaterID}`
         );
         setTheaterData(response.data);  // Assuming you get theater data with shows
       } catch (error) {

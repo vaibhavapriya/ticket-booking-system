@@ -21,7 +21,7 @@ const Confirmation = () => {
     try {
       setLoading(true);
       const response = await axios.post(
-        "http://localhost:5000/api/bookings/generate-pdf", // Your API endpoint to generate PDF
+        "https://ticket-booking-system-7vpl.onrender.com/api/bookings/generate-pdf", // Your API endpoint to generate PDF
         bookingData,
         { responseType: "blob" }
       );

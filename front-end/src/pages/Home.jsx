@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import FormProfile from '../components/FormProfile'
 import FormPhoto from '../components/FormPhoto'
-import SeatLayout from '../components/seatLayout';
+import SeatLayout from '../components/SeatLayout';
 import AddMovie from '../components/AddMovie';
 import Movies from '../components/Movies';
 import ManageShows from '../components/ManageShows.jsx';

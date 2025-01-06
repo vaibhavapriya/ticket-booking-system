@@ -16,7 +16,7 @@ function BookTickets() {
     const fetchMovie = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/movies/shows/${tmdbId}`
+          `https://ticket-booking-system-7vpl.onrender.com/api/movies/shows/${tmdbId}`
         );
         setMovie(response.data.movie);
       } catch (error) {

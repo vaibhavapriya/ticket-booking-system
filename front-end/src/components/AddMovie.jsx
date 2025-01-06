@@ -54,7 +54,7 @@ const AddMovie = () => {
       };
 
       // Send movie details to your backend to store in the movie database
-      await axios.post(`http://localhost:5000/api/cinemahall/movie/${clientId}`, movieData);
+      await axios.post(`https://ticket-booking-system-7vpl.onrender.com/api/cinemahall/movie/${clientId}`, movieData);
       alert('Movie added successfully!');
     } catch (error) {
       console.error('Error adding movie to database:', error);

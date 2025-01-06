@@ -15,7 +15,7 @@ const ResetPassword = () => {
       return;
     }
     try {
-      const res = await axios.post(`http://localhost:5000/auth/reset-password/${token}`, {
+      const res = await axios.post(`https://ticket-booking-system-7vpl.onrender.com/auth/reset-password/${token}`, {
         password,
       });
       setMessage(res.data.message);

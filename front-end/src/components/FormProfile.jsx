@@ -21,7 +21,7 @@ const FormProfile = ({setProfileModal}) => {
   useEffect(() => {
     const fetchClient = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/cinemahall/${clientId}`);
+        const res = await axios.get(`https://ticket-booking-system-7vpl.onrender.com/api/cinemahall/${clientId}`);
         setFormData(res.data);
         setLoading(false);
       } catch (err) {
@@ -46,7 +46,7 @@ const FormProfile = ({setProfileModal}) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
     try {
-      const res = await axios.put(`http://localhost:5000/api/cinemahall/${clientId}`, formData, {
+      const res = await axios.put(`https://ticket-booking-system-7vpl.onrender.com/api/cinemahall/${clientId}`, formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       alert('Profile updated successfully');

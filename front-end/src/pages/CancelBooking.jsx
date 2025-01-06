@@ -10,7 +10,7 @@ const ManageBookings = () => {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/user/bookings", {
+        const response = await axios.get("https://ticket-booking-system-7vpl.onrender.com/api/user/bookings", {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
         setBookings(response.data);
@@ -25,7 +25,7 @@ const ManageBookings = () => {
 
   const handleCancelBooking = async (bookingId) => {
     try {
-      await axios.delete(`http://localhost:5000/api/user/bookings/${bookingId}`, {
+      await axios.delete(`https://ticket-booking-system-7vpl.onrender.com/api/user/bookings/${bookingId}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       setBookings((prevBookings) => prevBookings.filter((booking) => booking._id !== bookingId));

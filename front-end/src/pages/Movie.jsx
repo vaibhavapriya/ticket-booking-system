@@ -14,7 +14,7 @@ function Movie() {
     const fetchMovie = async () => {
         try {
             const response = await fetch(
-              `http://localhost:5000/api/movies/details/${tmdbId}`
+              `https://ticket-booking-system-7vpl.onrender.com/api/movies/details/${tmdbId}`
             );
             const data = await response.json();
       

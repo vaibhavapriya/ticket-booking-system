@@ -13,6 +13,7 @@ const bookingSchema = new mongoose.Schema(
     totalPrice: {type: Number, required: true, },
     orderId: {type: String, required: true, },
     bookingDate: {type: Date,default: Date.now, },
+    status: { type: String, default: 'booked' }, 
   },
   {
     timestamps: true, // Automatically create createdAt and updatedAt fields

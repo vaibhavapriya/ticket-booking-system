@@ -26,7 +26,7 @@ const Header = () => {
                     </li>
                     <li
                       className="cursor-pointer hover:text-gray-300"
-                      onClick={() => navigate("/view-bookings")}
+                      onClick={() => navigate("/viewbookings")}
                     >
                       View Bookings
                     </li>

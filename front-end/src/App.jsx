@@ -14,6 +14,7 @@ import BookTickets from './pages/BookTickets';
 import SeatBooking from './pages/SeatBooking';
 import Payment from './pages/Payment';
 import Confirmation from './pages/Confirmation';
+import ViewBookings from './pages/ViewBookings';
 
 function App() {
   const [showData, setShowData] = useState(null);
@@ -34,6 +35,7 @@ function App() {
                 <Route path="/book-seats/:id" element={<SeatBooking/>}/>
                 <Route path="/payment" element={<Payment/>} />
                 <Route path="/confirmation" element={<Confirmation/>} />
+                <Route path="/viewbookings" element={<ViewBookings/>}/>
                 {/* showData={showData} setShowData={setShowData} selectedSeats={selectedSeats} setSelectedSeats={setSelectedSeats} totalPrice={totalPrice} */}
             </Routes>
       </Router>

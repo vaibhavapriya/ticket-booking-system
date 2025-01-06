@@ -6,7 +6,6 @@ const { validateToken } = require('../middlewares/validateToken');
 const nodemailer = require('nodemailer');  // Import Nodemailer
 const twilio = require('twilio');  // Import Twilio
 
-// Helper function to send booking confirmation email
 const sendBookingConfirmationEmail = async (email, bookingDetails) => {
   try {
     // Setup Nodemailer transport
@@ -45,8 +44,6 @@ const sendBookingConfirmationEmail = async (email, bookingDetails) => {
     console.error('Error sending booking confirmation email:', error);
   }
 };
-
-// Helper function to send booking confirmation SMS
 const sendBookingConfirmationSMS = async (phoneNumber, bookingDetails) => {
   try {
     const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
@@ -63,6 +60,15 @@ const sendBookingConfirmationSMS = async (phoneNumber, bookingDetails) => {
   }
 };
 
+router.get('/', validateToken, async (req, res) => {
+  try {
+    const bookings = await Booking.find({ bookerId: req.user.id });
+    res.json(bookings);
+  } catch (error) {
+    console.error("Error fetching bookings:", error);
+    res.status(500).json({ message: 'Error fetching bookings' });
+  }
+});
 router.post('/', validateToken, async (req, res) => {
   console.log(req.user);
   const bookerId = req.user.id;
@@ -145,5 +151,47 @@ router.post('/', validateToken, async (req, res) => {
     res.status(500).send({ message: 'An error occurred during the booking process', error: error.message });  // Include the error message in the response
   }
 });
+router.post('/cancel', validateToken, async (req, res) => {
+  const { bookingId } = req.body;
+
+  try {
+    // Find the booking to cancel
+    const booking = await Booking.findById(bookingId);
+    if (!booking) {
+      return res.status(404).json({ message: 'Booking not found' });
+    }
+
+    // Check if the booking belongs to the logged-in user
+    if (booking.bookerId.toString() !== req.user.id) {
+      return res.status(403).json({ message: 'Unauthorized' });
+    }
+
+    // Check if the booking is within 3 hours of showtime
+    const showTime = new Date(booking.showTime);
+    const cancelTimeLimit = showTime - Date.now();
+    if (cancelTimeLimit <= 3 * 60 * 60 * 1000) {
+      return res.status(400).json({ message: 'No refund available if canceled within 3 hours of the showtime' });
+    }
+
+    // Update booking status to 'canceled'
+    booking.status = 'canceled';
+    await booking.save();
+
+    // Remove booked seats from the show
+    const show = await Show.findById(booking.showId);
+    if (!show) {
+      return res.status(404).json({ message: 'Show not found' });
+    }
+
+    show.bookedSeats = show.bookedSeats.filter(seat => !booking.selectedSeats.includes(seat));
+    await show.save();
+
+    res.json({ message: 'Booking canceled successfully' });
+  } catch (error) {
+    console.error("Error canceling booking:", error);
+    res.status(500).json({ message: 'Error canceling booking' });
+  }
+});
+
 
 module.exports = router;

@@ -22,20 +22,21 @@ function Website() {
   return (
     <div>
       <Header/>
-      <Theaters/>
       <SearchMovie/>
+      <Theaters/>
+      
       
     {/* Movies Grid */}
     <div className="movies-grid grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
       {movies.map((movie) => (
         <div
           key={movie._id}
-          className="movie-card bg-[#2d2d2d] p-4 rounded-lg shadow-md"
+          className="movie-card bg-[#2d2d2d] p-4 rounded-lg shadow-md my-4"
         >
           <img
             src={`https://image.tmdb.org/t/p/w500${movie.poster}`}
             alt={movie.title}
-            className="movie-poster w-full h-64 object-cover rounded-lg mb-4"
+            className="movie-poster w-full h-100 object-cover rounded-lg mb-4 "
           />
           <h2 className="text-xl font-semibold text-[#db0a5b]">{movie.title}</h2>
           <p className="text-sm text-[#cec3c8] my-2">{movie.overview}</p>

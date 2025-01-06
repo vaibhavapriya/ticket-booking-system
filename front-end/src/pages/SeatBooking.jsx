@@ -8,7 +8,7 @@ import Header from '../components/Header';
 const SeatBooking = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  
+
   const [seats, setSeats] = useState([]);
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -59,10 +59,10 @@ const SeatBooking = () => {
 
     navigate(`/payment`, {
       state: {
-        showId :showData._id,
+        showId: showData._id,
         movieName: showData.movieName,
         theaterName: theaterData.name,
-        theaterLocation: theaterData.address + theaterData.city,
+        theaterLocation: `${theaterData.address || ""}, ${theaterData.city || "Not Available"}`,
         screenName: showData.screenId.screenName,
         selectedSeats,
         totalPrice,
@@ -79,7 +79,7 @@ const SeatBooking = () => {
             return (
               <div
                 key={`null-${index}`}
-                className="w-10 h-10 mx-1 bg-gray-300"
+                className="w-10 h-10 mx-1 bg-inherit" // Matches the background of the page
               ></div>
             );
           }
@@ -91,10 +91,11 @@ const SeatBooking = () => {
             <button
               key={seat}
               onClick={() => handleSeatClick(seat)}
-              className={`${isBooked ? 'bg-gray-500' : isSelected ? 'bg-green-500' : 'bg-white'} w-10 h-10 mx-1 rounded-lg border border-gray-400 hover:bg-green-200 focus:outline-none`}
+              className={`${isBooked ? 'bg-gray-500' : isSelected ? 'bg-green-500' : 'bg-white'} 
+                          w-10 h-10 mx-1 rounded-lg border border-gray-400 hover:bg-green-200 focus:outline-none`}
               disabled={isBooked}
             >
-              <span className="text-white">{seat}</span>
+              <span className="text-black">{seat}</span>
             </button>
           );
         })}
@@ -107,12 +108,16 @@ const SeatBooking = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <Header/>
-      <div className="mb-6 text-white">
-        <h1 className="text-3xl font-bold text-center">Movie: {showData.movieName}</h1>
-        <h2 className="text-2xl font-semibold text-center mt-2">Theater: {theaterData.name}</h2>
-        <p className="text-center text-lg">Location:{theaterData.address || ""} {theaterData.city || "Not Available"}</p>
+    <div>
+      <Header />
+      <div className="max-w-4xl mx-auto p-6 bg-gray-800  mt-6">
+      
+      <div className="mb-6 text-white mt-6">
+        <h1 className="text-3xl font-bold text-center text-[#db0a5b]">Movie: {showData.movieName}</h1>
+        <h2 className="text-2xl font-semibold text-center mt-2 text-[#db0a5b]">Theater: {theaterData.name}</h2>
+        <p className="text-center text-lg">
+          Location: {theaterData.address || ""}, {theaterData.city || "Not Available"}
+        </p>
         <div className="flex justify-center space-x-6 mt-4">
           <FontAwesomeIcon
             icon={faUtensils}
@@ -135,16 +140,21 @@ const SeatBooking = () => {
       <div className="seat-layout mb-6">{renderSeats()}</div>
 
       <div className="text-xl mb-4 text-white">
-        <p><strong>Total Price:</strong> ₹{totalPrice}</p>
-        <p><strong>Selected Seats:</strong> {selectedSeats.join(', ')}</p>
+        <p>
+          <strong>Total Price:</strong> ₹{totalPrice}
+        </p>
+        <p>
+          <strong>Selected Seats:</strong> {selectedSeats.join(', ')}
+        </p>
       </div>
 
       <button
         onClick={handleSubmit}
-        className="bg-blue-500 text-white py-2 px-6 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="bg-[#db0a5b] text-white py-2 px-6 rounded-lg hover:bg-[#f62459]  focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
         Book Ticket
       </button>
+    </div>
     </div>
   );
 };

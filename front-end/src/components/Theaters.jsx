@@ -53,8 +53,8 @@ const Theaters = () => {
   const currentTheater = theaters[currentTheaterIndex]; // Get the current theater
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4 text-white">Theater Details</h1>
+    <div className="container mx-auto p-4 w-100">
+      <h1 className="text-2xl font-bold mb-4 text-[#db0a5b]">Pick your theater</h1>
       {/* Display only the current theater */}
       {currentTheater && (
         <div className="w-full max-w-full p-4 border rounded-lg shadow-lg">

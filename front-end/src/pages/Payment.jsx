@@ -57,18 +57,28 @@ const PaymentForm = () => {
         setMessage(`Payment failed: ${paymentResult.error.message}`);
       } else if (paymentResult.paymentIntent.status === "succeeded") {
         setMessage("Payment succeeded!");
-        // Navigate to the confirmation page after success
+        const bookingData = {
+          showId,
+          selectedSeats,
+          movieName,
+          theaterName,
+          theaterLocation,
+          screenName,
+          totalPrice,
+          orderId: paymentResult.paymentIntent.id, };
+                  // Send booking details to the server
+        await axios.post("http://localhost:5000/api/bookings", bookingData);
+
+        // Update reserved seats in the show table
+        await axios.put("http://localhost:5000/api/shows/updateSeats", {
+          showId,
+          reservedSeats: selectedSeats,
+        });
+        console.log("tickets conformed")
+        // Navigate to confirmation page
         // navigate("/confirmation", {
-        //   state: {
-        //     movieName,
-        //     theaterName,
-        //     theaterLocation,
-        //     screenName,
-        //     selectedSeats,
-        //     totalPrice,
-        //   },
+        //   state: { bookingData },
         // });
-        console.log("nextpost")
       }
     } catch (error) {
       console.error("Error processing payment:", error);
@@ -80,7 +90,7 @@ const PaymentForm = () => {
 
   return (
     <div>
-      <div className="confirmation-page">
+      <div className="confirmation-page text-white">
         <h1>Booking Confirmation</h1>
         <p><strong>Movie Name:</strong> {movieName}</p>
         <p><strong>Theater:</strong> {theaterName}</p>

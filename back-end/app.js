@@ -9,6 +9,7 @@ const screenRoutes = require('./routes/screenRoutes');
 const movieRoutes = require('./routes/movieRoutes');
 const showRoutes = require('./routes/showRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
+const bookingRoutes = require('./routes/bookingRoutes')
 
 require('dotenv').config();
 

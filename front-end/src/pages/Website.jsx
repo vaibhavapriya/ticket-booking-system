@@ -2,17 +2,19 @@ import React, {useEffect, useState} from 'react'
 import { Link } from 'react-router-dom';
 import SearchMovie from '../components/SearchMovie';
 import Header from '../components/Header'
+import Theaters from '../components/Theaters';
+import axios from 'axios';
 
 function Website() {
     const [movies, setMovies] = useState([]);
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/movies/all");
-        const data = await response.json();
+        const response = await axios.get("http://localhost:5000/api/movies/all");
+        const data = await response.data;
         setMovies(data);
       } catch (error) {
-        console.error("Error fetching movies:", error);
+        console.error("Error fetching movies:");
       }
     };
     fetchMovies();
@@ -20,6 +22,7 @@ function Website() {
   return (
     <div>
       <Header/>
+      <Theaters/>
       <SearchMovie/>
       
     {/* Movies Grid */}

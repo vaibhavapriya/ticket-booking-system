@@ -23,7 +23,7 @@ connectDB();
 app.options('*', cors());
 // Middleware
 app.options('*', (req, res) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:5173');
+  res.header('Access-Control-Allow-Origin', 'https://loquacious-florentine-32cf70.netlify.app');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Authorization, Content-Type');
   res.sendStatus(200);
@@ -33,7 +33,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Middleware for CORS
 app.use(cors({
-  origin: 'http://localhost:5173', // Allow requests from your frontend
+  origin: 'https://loquacious-florentine-32cf70.netlify.app', // Allow requests from your frontend
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Authorization', 'Content-Type'],
   credentials: true, // If you need cookies or other credentials

@@ -77,33 +77,33 @@ const FormPhoto = ({ setPhotoModal }) => {
   };
 
   return (
-    <div className="p-6 bg-lightGray min-h-screen flex flex-col items-center justify-center">
-      <h2 className="text-2xl font-semibold text-darkGray mb-6">Upload Image</h2>
+    <div className="bg-lightGray p-8 min-h-screen flex flex-col items-center justify-center space-y-8">
+      <h2 className="text-2xl font-semibold text-[#db0a5b]">Upload Image</h2>
 
       <input
         type="file"
         accept="image/*"
         onChange={handleFileChange}
-        className="px-4 py-2 bg-primary text-white rounded-md cursor-pointer mb-6"
+        className="px-6 py-3 bg-primary text-white rounded-md cursor-pointer shadow-md hover:bg-primary-dark focus:outline-none transition-all"
       />
 
       {image && (
-        <div className="mt-6">
-          <h3 className="text-lg text-darkGray mb-4">Image Preview:</h3>
+        <div className="mt-6 space-y-4">
+          <h3 className="text-lg text-darkGray">Image Preview:</h3>
           <img src={image} alt="Preview" className="max-w-full rounded-lg shadow-lg" />
         </div>
       )}
 
-      <div className="flex gap-2 mt-6">
+      <div className="flex gap-4 mt-8 w-full max-w-sm">
         <button
           onClick={handleUpload}
-          className="bg-[#db0a5b] text-white p-2 rounded font-bold hover:bg-[#f62459] transition flex-1"
+          className="bg-[#db0a5b] text-white py-3 rounded font-semibold hover:bg-[#f62459] transition duration-300 flex-1"
         >
           Upload Image
         </button>
         <button
           onClick={handleCancle}
-          className="bg-gray-400 text-white p-2 rounded font-bold hover:bg-gray-500 transition flex-1"
+          className="bg-gray-400 text-white py-3 rounded font-semibold hover:bg-gray-500 transition duration-300 flex-1"
         >
           Cancel
         </button>

@@ -116,9 +116,6 @@ function TheaterTickets() {
             </button>
           </div>
         </div>
-        <Link to={`/t/${currentTheater.userid}`} className="text-[#db0a5b] mt-4 inline-block">
-          About
-        </Link>
         <p>{currentTheater.userid}</p>
         <h2 className="text-xl font-semibold mt-4 text-white">{currentTheater.name}</h2>
         <p className="text-white text-gray-600">{currentTheater.city}</p>

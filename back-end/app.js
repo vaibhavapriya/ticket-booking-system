@@ -49,6 +49,7 @@ app.use('/api/screens',screenRoutes);
 app.use('/api/movies',movieRoutes);
 app.use('/api/shows',showRoutes);
 app.use('/api/pay',paymentRoutes);
+app.use('/api/bookings',bookingRoutes)
 
 
 // Start the server

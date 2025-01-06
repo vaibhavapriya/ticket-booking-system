@@ -58,9 +58,10 @@ const SeatBooking = () => {
 
     navigate(`/payment`, {
       state: {
+        showId :showData._id,
         movieName: showData.movieName,
         theaterName: theaterData.name,
-        location: theaterData.location,
+        theaterLocation: theaterData.address + theaterData.city,
         screenName: showData.screenId.screenName,
         selectedSeats,
         totalPrice,

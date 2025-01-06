@@ -1,17 +1,22 @@
 const mongoose = require('mongoose');
 
-// Define the booking schema
-const bookingSchema = new mongoose.Schema({
-  movieName: { type: String, },
-  theaterName: { type: String, },
-  theaterLocation: { type: String,},
-  screenName: { type: String, },
-  selectedSeats: { type: [String],  },
-  totalPrice: { type: Number, },
-  paymentID: { type: String,  required: true, },
-  paymentStatus: {type: String, default: 'PENDING', },
-  bookingDate: { type: Date, default: Date.now, },
-});
+const bookingSchema = new mongoose.Schema(
+  {
+    showId: {type: mongoose.Schema.Types.ObjectId, ref: 'Show', required: true,},
+    selectedSeats: { type: [String], required: true,
+    },
+    movieName: { type: String,required: true, },
+    theaterName: { type: String, required: true,},
+    theaterLocation: { type: String, required: true, },
+    screenName: { type: String, required: true,},
+    totalPrice: {type: Number, required: true, },
+    orderId: {type: String, required: true, },
+    bookingDate: {type: Date,default: Date.now, },
+  },
+  {
+    timestamps: true, // Automatically create createdAt and updatedAt fields
+  }
+);
 
 const Booking = mongoose.model('Booking', bookingSchema);
 

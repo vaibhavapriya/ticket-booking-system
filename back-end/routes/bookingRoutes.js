@@ -3,7 +3,7 @@ const router = express.Router();
 const Booking = require('../models/bookingSchema')
 
 
-router.post('/api/bookings', async (req, res) => {
+router.post('/', async (req, res) => {
     const { showId, selectedSeats, movieName, theaterName, theaterLocation, screenName, totalPrice, orderId } = req.body;
   
     // Create a booking record in the database

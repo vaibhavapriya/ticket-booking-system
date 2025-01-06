@@ -13,11 +13,12 @@ const PaymentForm = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Destructure data passed from the booking page
+  // Destructure data passed from the booking page     //location: theaterLocation,
   const {
+    showId,
     movieName,
     theaterName,
-    location: theaterLocation,
+    theaterLocation,
     screenName,
     selectedSeats,
     totalPrice,
@@ -62,17 +63,17 @@ const PaymentForm = () => {
           selectedSeats,
           movieName,
           theaterName,
-          theaterLocation,
+          theaterLocation:theaterLocation  || "Unknown Location",
           screenName,
           totalPrice,
           orderId: paymentResult.paymentIntent.id, };
                   // Send booking details to the server
         await axios.post("http://localhost:5000/api/bookings", bookingData);
-
+        
         // Update reserved seats in the show table
         await axios.put("http://localhost:5000/api/shows/updateSeats", {
           showId,
-          reservedSeats: selectedSeats,
+          reservedSeats:selectedSeats,
         });
         console.log("tickets conformed")
         // Navigate to confirmation page

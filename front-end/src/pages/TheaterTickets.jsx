@@ -1,18 +1,20 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHamburger, faParking, faWheelchair } from "@fortawesome/free-solid-svg-icons";
+import { faUtensils } from "@fortawesome/free-solid-svg-icons"; // For food icon
 import Header from "../components/Header";
 
 function TheaterTickets() {
   const { theaterID } = useParams();
-  console.log("Theater ID from URL:", theaterID);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [theaterData, setTheaterData] = useState({});
   const [dates, setDates] = useState([]);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const navigate = useNavigate();
-
+  const currentTheater = theaterData.theater || {};  // Access the theater data
+  
   useEffect(() => {
     // Fetch Movie and Theater Data
     const fetchTheaterData = async () => {
@@ -39,6 +41,19 @@ function TheaterTickets() {
   }, [theaterID]);
 
   const handleDateClick = (date) => setSelectedDate(date);
+
+  // Slider Controls
+  const prevImage = (photos) => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === 0 ? photos.length - 1 : prevIndex - 1
+    );
+  };
+
+  const nextImage = (photos) => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === photos.length - 1 ? 0 : prevIndex + 1
+    );
+  };
 
   // Filter and group shows by movie name
   const getGroupedShows = (theaterData) => {
@@ -75,8 +90,55 @@ function TheaterTickets() {
     <div className="booking-page p-6">
       <Header />
       
+      {/* Slider Image */}
+      <div className="w-full max-w-full p-4 border rounded-lg shadow-lg">
+        <div className="relative">
+          <img
+            src={
+              currentTheater.photos?.[currentImageIndex] ||
+              "https://plus.unsplash.com/premium_photo-1709594070896-fc3869d4dcd6?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            }
+            alt={`${currentTheater.name} Image`}
+            className="h-64 w-full object-cover rounded-lg"
+          />
+          <div className="absolute top-1/2 left-0 right-0 flex justify-between">
+            <button
+              onClick={() => prevImage(currentTheater.photos)}
+              className="bg-gray-800 text-white p-2 rounded-full"
+            >
+              Prev Image
+            </button>
+            <button
+              onClick={() => nextImage(currentTheater.photos)}
+              className="bg-gray-800 text-white p-2 rounded-full"
+            >
+              Next Image
+            </button>
+          </div>
+        </div>
+        <Link to={`/t/${currentTheater.userid}`} className="text-[#db0a5b] mt-4 inline-block">
+          About
+        </Link>
+        <p>{currentTheater.userid}</p>
+        <h2 className="text-xl font-semibold mt-4 text-white">{currentTheater.name}</h2>
+        <p className="text-white text-gray-600">{currentTheater.city}</p>
+        <p className="text-white text-gray-600">{currentTheater.address}</p>
+        <div className="flex items-center gap-4 mt-4">
+          {/* FontAwesome Icons with white color */}
+          {currentTheater.food && (
+            <FontAwesomeIcon icon={faUtensils} title="Food Available" className="text-white text-xl" />
+          )}
+          {currentTheater.parking && (
+            <FontAwesomeIcon icon={faParking} title="Parking Available" className="text-white text-xl" />
+          )}
+          {currentTheater.handicapFacility && (
+            <FontAwesomeIcon icon={faWheelchair} title="Handicap Facility" className="text-white text-xl" />
+          )}
+        </div>
+      </div>
+
       {/* Date Selector */}
-      <div className="date-selector flex overflow-x-auto mb-8">
+      <div className="date-selector flex overflow-x-auto mb-8 my-6">
         {dates.map((date, idx) => (
           <button
             key={idx}

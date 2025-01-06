@@ -13,6 +13,7 @@ import Movie from './pages/Movie';
 import BookTickets from './pages/BookTickets';
 import SeatBooking from './pages/SeatBooking';
 import Payment from './pages/Payment';
+import Confirmation from './pages/Confirmation';
 
 function App() {
   const [showData, setShowData] = useState(null);
@@ -32,6 +33,7 @@ function App() {
                 <Route path="/book/:tmdbId" element={<BookTickets/>} />
                 <Route path="/book-seats/:id" element={<SeatBooking/>}/>
                 <Route path="/payment" element={<Payment/>} />
+                <Route path="/confirmation" element={<Confirmation/>} />
                 {/* showData={showData} setShowData={setShowData} selectedSeats={selectedSeats} setSelectedSeats={setSelectedSeats} totalPrice={totalPrice} */}
             </Routes>
       </Router>

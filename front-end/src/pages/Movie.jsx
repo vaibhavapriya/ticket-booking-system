@@ -1,6 +1,7 @@
 import React, {useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import axios from 'axios';
+import Header from '../components/Header';
 
 function Movie() {
     const { tmdbId } = useParams();
@@ -50,6 +51,7 @@ function Movie() {
   }
   return (
     <div>
+      <Header/>
         <div className="movie-details-page bg-[#1a1a1a] min-h-screen text-white p-6">
       {/* Movie Poster */}
       <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8">

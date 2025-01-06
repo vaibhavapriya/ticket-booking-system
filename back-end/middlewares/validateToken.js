@@ -6,7 +6,8 @@ exports.validateToken = async (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = decoded;
+        req.user = decoded; // Set req.user after decoding the token
+        console.log(req.user); // Now req.user will contain the decoded information
         next();
     } catch (error) {
         res.status(401).json({ message: 'Invalid or expired token' });

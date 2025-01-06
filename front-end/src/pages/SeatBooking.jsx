@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUtensils, faParking, faWheelchair } from '@fortawesome/free-solid-svg-icons';
+import Header from '../components/Header';
 
 const SeatBooking = () => {
   const { id } = useParams();
@@ -107,6 +108,7 @@ const SeatBooking = () => {
 
   return (
     <div className="max-w-4xl mx-auto p-6">
+      <Header/>
       <div className="mb-6 text-white">
         <h1 className="text-3xl font-bold text-center">Movie: {showData.movieName}</h1>
         <h2 className="text-2xl font-semibold text-center mt-2">Theater: {theaterData.name}</h2>

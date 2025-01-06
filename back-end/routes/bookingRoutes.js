@@ -5,6 +5,8 @@ const Show = require('../models/showSchema');
 const { validateToken } = require('../middlewares/validateToken');
 const nodemailer = require('nodemailer');  // Import Nodemailer
 const twilio = require('twilio');  // Import Twilio
+const PDFDocument = require("pdfkit");
+
 
 const sendBookingConfirmationEmail = async (email, bookingDetails) => {
   try {
@@ -191,6 +193,40 @@ router.post('/cancel', validateToken, async (req, res) => {
     console.error("Error canceling booking:", error);
     res.status(500).json({ message: 'Error canceling booking' });
   }
+});
+router.post("/generate-pdf",(req, res) => {
+  const bookingData = req.body;
+
+  if (!bookingData) {
+    return res.status(400).json({ message: "No booking data provided" });
+  }
+
+  // Create a PDF document
+  const doc = new PDFDocument();
+
+  // Create a stream to save the PDF to a buffer
+  const pdfBuffer = [];
+  doc.on("data", (chunk) => pdfBuffer.push(chunk));
+  doc.on("end", () => {
+    const pdfData = Buffer.concat(pdfBuffer);
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Disposition", `attachment; filename=Booking_${bookingData.orderId}.pdf`);
+    res.send(pdfData);
+  });
+
+  // Add content to the PDF
+  doc.fontSize(20).text(`Booking Confirmation for ${bookingData.movieName}`, { align: "center" });
+  doc.fontSize(14).text(`Movie Name: ${bookingData.movieName}`);
+  doc.text(`Theater: ${bookingData.theaterName}`);
+  doc.text(`Showtime: ${bookingData.screenName}`);
+  doc.text(`Seats: ${bookingData.selectedSeats.join(", ")}`);
+  doc.text(`Total Price: ₹${bookingData.totalPrice}`);
+  doc.text(`Order ID: ${bookingData.orderId}`);
+  doc.text(`Email: ${bookingData.email}`);
+  doc.text(`Phone: ${bookingData.phoneNumber}`);
+
+  // End the PDF creation
+  doc.end();
 });
 
 

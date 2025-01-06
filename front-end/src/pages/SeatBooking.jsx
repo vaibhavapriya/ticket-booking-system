@@ -1,33 +1,32 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUtensils, faParking, faWheelchair } from '@fortawesome/free-solid-svg-icons';
 
 const SeatBooking = () => {
-  const { id } = useParams(); 
+  const { id } = useParams();
   const navigate = useNavigate();
   
   const [seats, setSeats] = useState([]);
-  const [selectedSeats, setSelectedSeats] = useState([]); 
+  const [selectedSeats, setSelectedSeats] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [showData, setShowData] = useState(null); 
+  const [showData, setShowData] = useState(null);
+  const [theaterData, setTheaterData] = useState(null);
 
   useEffect(() => {
     const fetchSeatLayout = async () => {
       try {
         const response = await axios.get(`http://localhost:5000/api/shows/${id}`);
-        const { show, theater } = response.data;  // Destructure the show and theater data
-        
-        console.log('Fetched Show Data:', show);
-        console.log('Theater Data:', theater);
-        
-        setShowData(show);  // Set show data after fetching
-        
-        // After setting showData, update seats from showData
-        if (show && show.screenId && show.screenId.rows) {
-          setSeats(show.screenId.rows);  // Set seats based on rows from screenId
-        }
+        const { show, theater } = response.data;
 
-        setTotalPrice(0); // Reset the total price on data fetch
+        setShowData(show);
+        setTheaterData(theater);
+
+        if (show?.screenId?.rows) {
+          setSeats(show.screenId.rows);
+        }
+        setTotalPrice(0);
       } catch (error) {
         console.error('Error fetching seat layout:', error);
       }
@@ -37,8 +36,6 @@ const SeatBooking = () => {
   }, [id]);
 
   const handleSeatClick = (seat) => {
-    console.log(`Seat clicked: ${seat}`);
-
     if (showData.bookedSeats.includes(seat)) {
       alert(`Seat ${seat} is already booked.`);
       return;
@@ -51,7 +48,6 @@ const SeatBooking = () => {
       setSelectedSeats((prevSelected) => [...prevSelected, seat]);
       setTotalPrice((prevTotal) => prevTotal + showData.price);
     }
-    console.log(selectedSeats);
   };
 
   const handleSubmit = () => {
@@ -59,13 +55,13 @@ const SeatBooking = () => {
       alert("Please select at least one seat.");
       return;
     }
-  
+
     navigate(`/payment`, {
       state: {
         movieName: showData.movieName,
-        theaterName: showData.theaterName,
-        location: showData.location,
-        screenName: showData.screenName,
+        theaterName: theaterData.name,
+        location: theaterData.location,
+        screenName: showData.screenId.screenName,
         selectedSeats,
         totalPrice,
       },
@@ -81,7 +77,7 @@ const SeatBooking = () => {
             return (
               <div
                 key={`null-${index}`}
-                className="w-10 h-10 mx-1 bg-gray-300" // Placeholder for null seats
+                className="w-10 h-10 mx-1 bg-gray-300"
               ></div>
             );
           }
@@ -104,25 +100,45 @@ const SeatBooking = () => {
     ));
   };
 
-  if (!showData) {
+  if (!showData || !theaterData) {
     return <div className="text-center text-xl font-semibold text-white">Loading...</div>;
   }
 
   return (
     <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-4 text-center text-white">Seat Booking for {showData.movieName}</h1>
+      <div className="mb-6 text-white">
+        <h1 className="text-3xl font-bold text-center">Movie: {showData.movieName}</h1>
+        <h2 className="text-2xl font-semibold text-center mt-2">Theater: {theaterData.name}</h2>
+        <p className="text-center text-lg">Location:{theaterData.address || ""} {theaterData.city || "Not Available"}</p>
+        <div className="flex justify-center space-x-6 mt-4">
+          <FontAwesomeIcon
+            icon={faUtensils}
+            className={`text-2xl ${theaterData.food ? 'text-green-500' : 'text-gray-500'}`}
+            title="Food & Beverages"
+          />
+          <FontAwesomeIcon
+            icon={faParking}
+            className={`text-2xl ${theaterData.parking ? 'text-green-500' : 'text-gray-500'}`}
+            title="Parking"
+          />
+          <FontAwesomeIcon
+            icon={faWheelchair}
+            className={`text-2xl ${theaterData.handicapFacility ? 'text-green-500' : 'text-gray-500'}`}
+            title="Handicap Facility"
+          />
+        </div>
+      </div>
+
       <div className="seat-layout mb-6">{renderSeats()}</div>
 
-      <div className="total-price text-xl mb-4 text-white">
+      <div className="text-xl mb-4 text-white">
         <p><strong>Total Price:</strong> ₹{totalPrice}</p>
-      </div>
-      <div className="total-price text-xl mb-4 text-white">
         <p><strong>Selected Seats:</strong> {selectedSeats.join(', ')}</p>
       </div>
 
-      <button 
-        onClick={handleSubmit} 
-        className="booking-btn bg-blue-500 text-white py-2 px-6 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      <button
+        onClick={handleSubmit}
+        className="bg-blue-500 text-white py-2 px-6 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
         Book Ticket
       </button>

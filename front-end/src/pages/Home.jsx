@@ -39,6 +39,12 @@ function Home() {
         </div>
         <nav>
           <ul className="flex space-x-6">
+          <li
+                  className="cursor-pointer hover:text-gray-300"
+                  onClick={() => navigate("/reports")}
+                >
+                  Report
+                </li>
             
           <li
                   className="cursor-pointer hover:text-gray-300"

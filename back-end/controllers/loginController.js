@@ -16,7 +16,7 @@ exports.forgotPassword = async (req, res, next) => {
     user.resetTokenExpiry = resetTokenExpiry;
     await user.save();
     
-    const resetLink = `http://localhost:5173/reset-password/${resetToken}`;
+    const resetLink = `https://loquacious-florentine-32cf70.netlify.app/${resetToken}`;
 
     // Send email
     const transporter = nodemailer.createTransport({

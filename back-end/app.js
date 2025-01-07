@@ -10,6 +10,8 @@ const movieRoutes = require('./routes/movieRoutes');
 const showRoutes = require('./routes/showRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
 const bookingRoutes = require('./routes/bookingRoutes')
+const reportsRoutes = require('./routes/reports');
+
 
 require('dotenv').config();
 
@@ -49,7 +51,8 @@ app.use('/api/screens',screenRoutes);
 app.use('/api/movies',movieRoutes);
 app.use('/api/shows',showRoutes);
 app.use('/api/pay',paymentRoutes);
-app.use('/api/bookings',bookingRoutes)
+app.use('/api/bookings',bookingRoutes);
+app.use('/api/reports', reportsRoutes);
 
 
 // Start the server

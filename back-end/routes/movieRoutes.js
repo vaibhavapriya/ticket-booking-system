@@ -107,7 +107,7 @@ router.post("/show", async (req, res) => {
     await Movie.findByIdAndUpdate(movieId, { $push: { shows: savedShow._id } }, { new: true });
     console.log("Updated Movie for ID:", movieId);
 
-    await Movie.findByIdAndUpdate(theaterId, { $addToSet: { theaters: theaterId } }, { new: true });
+    await Movie.findByIdAndUpdate(movieId, { $addToSet: { theaters: theaterId } }, { new: true });
     console.log("Updated Movie for ID:", movieId);
 
     await Screen.findByIdAndUpdate(screenId, { $push: { shows: savedShow._id } }, { new: true });

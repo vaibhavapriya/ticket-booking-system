@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Header from "../components/Header";
 
 const ViewBookings = () => {
   const [bookings, setBookings] = useState([]);
@@ -60,7 +61,8 @@ const ViewBookings = () => {
 
   return (
     <div className="min-h-screen bg-[#1a1a1a] text-white p-6">
-      <h2 className="text-3xl font-bold text-[#db0a5b] mb-6">Your Bookings</h2>
+      <Header />
+      <h2 className="text-3xl font-bold text-[#db0a5b] mb-6 mt-10">Your Bookings</h2>
 
       <div>
         <h3 className="text-2xl font-semibold text-[#f62459] mb-4">Active Bookings</h3>

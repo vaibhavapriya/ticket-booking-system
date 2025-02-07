@@ -179,7 +179,7 @@ function TheaterTickets() {
             </div>
           ))
         ) : (
-          <p>No shows available for the selected date</p>
+          <p className="text-white">No shows available for the selected date</p>
         )}
       </div>
     </div>

@@ -77,78 +77,85 @@ function BookTickets() {
 
       {/* Theater and Show Info */}
       <div className="theater-info grid grid-cols-1 md:grid-cols-2 gap-8">
-        {filteredTheaters && filteredTheaters.length > 0 ? (
-          filteredTheaters.map((theater) => (
-            <div
-              key={theater._id}
-              className="theater-card p-4 border rounded-lg shadow-md"
-            >
-              {/* Theater Details */}
-              <div className="theater-header flex justify-between items-center mb-4">
-                <div>
-                <Link to={`/t/${theater.userid}`}><h3 className="text-lg font-bold text-[#333] hover:text-[#db0a5b]">
-                    {theater.name}
-                  </h3></Link>
-                  <p className="text-sm text-[#777]">{theater.address}</p>
-                  <p className="text-sm text-[#777]">{theater.city}</p>
-                </div>
-                <div className="icons flex space-x-3">
-                  {theater.food && (
-                    <FontAwesomeIcon
-                      icon={faHamburger}
-                      className="text-[#db0a5b]"
-                    />
-                  )}
-                  {theater.parking && (
-                    <FontAwesomeIcon
-                      icon={faParking}
-                      className="text-[#db0a5b]"
-                    />
-                  )}
-                  {theater.handicapFacility && (
-                    <FontAwesomeIcon
-                      icon={faWheelchair}
-                      className="text-[#db0a5b]"
-                    />
-                  )}
-                </div>
-              </div>
+  {filteredTheaters && filteredTheaters.length > 0 ? (
+    filteredTheaters.map((theater) => (
+      <div
+        key={theater._id}
+        className="theater-card p-4 border rounded-lg shadow-md"
+      >
+        {/* Theater Details */}
+        <div className="theater-header flex justify-between items-center mb-4">
+          <div>
+            <Link to={`/t/${theater.userid}`}>
+              <h3 className="text-lg font-bold text-[#333] hover:text-[#db0a5b]">
+                {theater.name}
+              </h3>
+            </Link>
+            <p className="text-sm text-[#777]">{theater.address}</p>
+            <p className="text-sm text-[#777]">{theater.city}</p>
+          </div>
+          <div className="icons flex space-x-3">
+            {theater.food && (
+              <FontAwesomeIcon
+                icon={faHamburger}
+                className="text-[#db0a5b]"
+              />
+            )}
+            {theater.parking && (
+              <FontAwesomeIcon
+                icon={faParking}
+                className="text-[#db0a5b]"
+              />
+            )}
+            {theater.handicapFacility && (
+              <FontAwesomeIcon
+                icon={faWheelchair}
+                className="text-[#db0a5b]"
+              />
+            )}
+          </div>
+        </div>
 
-              {/* Show Times */}
-              <div className="shows flex flex-wrap">
-                {theater.shows
-                  ?.filter(
-                    (show) =>
-                      new Date(show.showDate).toDateString() ===
-                      selectedDate.toDateString()
-                  )
-                  .map((show) => {
-                    const bookedPercentage =
-                      (show.bookedSeats.length / show.totalSeats) * 100;
-                    let bgColor = "bg-[#28a745]";
-                    if (bookedPercentage >= 70) bgColor = "bg-[#dc3545]";
-                    if (bookedPercentage === 100) bgColor = "bg-[#6c757d]";
+        {/* Show Times */}
+        <div className="shows flex flex-wrap">
+          {theater.shows?.filter(
+            (show) => new Date(show.showDate).toDateString() === selectedDate.toDateString()
+          ).length === 0 ? (
+            <p>No shows available for this theater on the selected date.</p>
+          ) : (
+            theater.shows
+              ?.filter(
+                (show) =>
+                  new Date(show.showDate).toDateString() === selectedDate.toDateString()
+              )
+              .map((show) => {
+                const bookedPercentage = (show.bookedSeats.length / show.totalSeats) * 100;
+                let bgColor = "bg-[#28a745]";
+                if (bookedPercentage >= 70) bgColor = "bg-[#dc3545]";
+                if (bookedPercentage === 100) bgColor = "bg-[#6c757d]";
 
-                    return (
-                      <div
-                        key={show._id}
-                        onClick={() => navigate(`/book-seats/${show._id}`)}
-                        className={`${bgColor} text-white px-4 py-2 m-2 rounded cursor-pointer`}
-                      >
-                        {new Date(show.showDate).toLocaleTimeString([], {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        })}
-                      </div>
-                    );
-                  })}
-              </div>
-            </div>
-          ))
-        ) : (
-          <p>No theaters available for the selected date</p>
-        )}
+                return (
+                  <div
+                    key={show._id}
+                    onClick={() => navigate(`/book-seats/${show._id}`)}
+                    className={`${bgColor} text-white px-4 py-2 m-2 rounded cursor-pointer`}
+                  >
+                    {new Date(show.showDate).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </div>
+                );
+              })
+          )}
+        </div>
       </div>
+    ))
+  ) : (
+    <p className="text-white">No theaters available for the selected date</p>
+  )}
+</div>
+
     </div>
   );
 }
